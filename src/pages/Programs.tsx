@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div``
 
-export const Programs: FC = () => {
+export const Programs: React.FC = () => {
   return (
     <Container>
       <h1>Program</h1>
