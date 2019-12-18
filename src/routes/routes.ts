@@ -20,12 +20,12 @@ export const routes: Route[] = [
     exact: true,
   },
   {
-    path: '/',
+    path: '/exercises',
     component: Exercises,
     icon: GiFiles,
   },
   {
-    path: '/',
+    path: '/categories',
     component: Categories,
     icon: GiFiles,
   },

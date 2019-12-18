@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { Page } from './components/templates/Page'
+import { Routes } from './routes'
+import { AppLayout } from './components/templates/AppLayout'
 
 export const App: React.FC = () => {
   return (
-    <Page>
-      <h1>hello</h1>
-    </Page>
+    <AppLayout>
+      <Routes />
+    </AppLayout>
   )
 }
