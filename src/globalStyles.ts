@@ -1,6 +1,36 @@
 import { createGlobalStyle } from 'styled-components'
 import { createMuiTheme } from '@material-ui/core/styles'
 
+export const StyledComponentsTheme = {
+  drawerBackground: '#282828',
+  text: '#202124',
+  textInactive: '#aaa',
+  iconWhite: '#fff',
+  iconInactive: '#909090',
+  formBackground: '#f0f2f2',
+  white: '#fff',
+}
+
+export const MuiTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#282828',
+    },
+    secondary: {
+      main: '#909090',
+    },
+    error: {
+      main: '#ff0000',
+    },
+    background: {
+      default: '#fff',
+    },
+  },
+  typography: {
+    fontSize: 20,
+  },
+})
+
 export const StyledComponentsGlobalStyles = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -75,23 +105,3 @@ export const StyledComponentsGlobalStyles = createGlobalStyle`
     margin-bottom: 2rem;
   }
 `
-
-export const MuiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#000',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: '#ff0000',
-    },
-    background: {
-      default: '#fff',
-    },
-  },
-  typography: {
-    fontSize: 20,
-  },
-})
