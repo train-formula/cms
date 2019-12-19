@@ -38,9 +38,7 @@ type Props = {
 }
 
 export const Link: React.FC<Props> = ({ route }) => {
-  const Icon: any = route.icon
-  // TODO figure this
-  // const Icon: React.ReactNode = route.icon
+  const Icon = route.icon
 
   return (
     <Container key={route.path} to={route.path} activeClassName="active" exact>

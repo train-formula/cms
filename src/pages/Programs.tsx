@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { LibraryLayout } from '../components/templates/LibraryLayout'
+
 const Container = styled.div`
+  height: 100%;
   .test {
     font-size: 1rem;
   }
@@ -10,7 +13,9 @@ const Container = styled.div`
 export const Programs: React.FC = () => {
   return (
     <Container>
-      <h1 className="test">Program</h1>
+      <LibraryLayout>
+        <h1 className="test">fuck</h1>
+      </LibraryLayout>
     </Container>
   )
 }

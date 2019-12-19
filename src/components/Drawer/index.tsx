@@ -5,7 +5,7 @@ import { Route, routes } from '../../routes/routes'
 import { Link } from './Link'
 
 const Container = styled.div`
-  height: 100%;
+  padding-top: 5rem;
   background: ${p => p.theme.background};
 `
 

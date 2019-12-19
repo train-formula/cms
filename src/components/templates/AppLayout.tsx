@@ -7,9 +7,6 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: 80px 1fr;
-  .content {
-    border: 2px solid purple;
-  }
 `
 
 type Props = {
@@ -20,7 +17,7 @@ export const AppLayout: React.FC<Props> = ({ children }) => {
   return (
     <Container>
       <Drawer />
-      <div className="content">{children}</div>
+      {children}
     </Container>
   )
 }
