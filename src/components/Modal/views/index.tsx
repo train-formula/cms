@@ -11,13 +11,12 @@ type Props = {
 }
 const Container = styled.div<Props>`
   position: absolute;
-  z-index: 99999;
+  z-index: ${p => (p.isOpen ? 9999 : -1)};
   top: 0;
   height: 100vh;
   width: 100vw;
-  display: ${p => (p.isOpen ? 'block' : 'none')};
-  // justify-content: center;
-  // align-items: center;
+  transition: opacity 0.15s;
+  opacity: ${p => (p.isOpen ? 1 : 0)};
   background: #ffffff;
 `
 const CloseButton = styled(IconButton)`
@@ -54,7 +53,10 @@ export const Modal: React.FC = () => {
     }
   }, [handleKeydown])
 
-  function getComponent(type: string | undefined, data: any) {
+  function getComponent(
+    type: string | undefined,
+    data: { [key: string]: any }
+  ): React.ReactNode {
     switch (type) {
       case 'exerciseForm':
         return <ExerciseForm {...data} />
