@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
 import Tooltip from '@material-ui/core/Tooltip'
 import { IoMdAdd } from 'react-icons/io'
 
@@ -9,36 +10,23 @@ import Search from './Search'
 import { useModal } from '../Modal/context'
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
   padding: 1rem;
-  .left {
+  align-items: center;
+  position: relative;
+  .zIndex1 {
+    z-index: 1;
+  }
+  .add-icon {
+    height: 2rem;
+    width: 2rem;
+    margin-right: 1rem;
+  }
+  .center {
+    position: absolute;
+    width: calc(100% - 2rem);
     display: flex;
-    .title {
-      color: ${p => p.theme.title};
-      font-weight: 300;
-      letter-spacing: 0.15rem;
-    }
-  }
-  .right {
-    display: flex;
-    justify-self: flex-end;
-  }
-  .left,
-  .right {
-    align-items: center;
-  }
-  .MuiButton-root {
-    height: 4rem;
-    width: 4rem;
-    padding: 0;
-    border-radius: 50%;
-    min-width: inherit;
-    margin-left: 1rem;
-    svg {
-      height: 1.8rem;
-      width: 1.8rem;
-    }
+    justify-content: center;
   }
 `
 Container.defaultProps = {
@@ -56,20 +44,17 @@ export const Header: React.FC<Props> = () => {
 
   return (
     <Container>
-      <div className="left">
-        <Typography variant="h4" className="title">
-          Programs
-        </Typography>
-        <Tooltip
-          title="create a program"
-          onClick={() => openModal({ type: 'exerciseForm' })}
-        >
-          <Button variant="outlined">
-            <IoMdAdd />
-          </Button>
-        </Tooltip>
-      </div>
-      <div className="right">
+      <Fab
+        color="primary"
+        className="zIndex1"
+        variant="extended"
+        aria-label="create a program"
+        onClick={() => openModal({ type: 'exerciseForm' })}
+      >
+        <IoMdAdd className="add-icon" />
+        Create a program
+      </Fab>
+      <div className="center">
         <Search />
       </div>
     </Container>

@@ -10,15 +10,14 @@ const useStyles = makeStyles(theme => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    // border: '1px solid #909090',
     background: '#f0f2f2',
     color: '#242424',
     borderRadius: '8px',
+    width: '30%',
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
-    // color: '#ffffff',
     color: '#909090',
     opacity: '1',
     fontSize: '1.6rem',
@@ -26,7 +25,6 @@ const useStyles = makeStyles(theme => ({
   iconButton: {
     padding: 10,
     color: '#909090',
-    // color: 'rgba(255,255,255,0.45)',
   },
 }))
 
@@ -35,14 +33,14 @@ export default function CustomizedInputBase() {
 
   return (
     <Paper elevation={0} className={classes.root}>
+      <IconButton className={classes.iconButton} aria-label="search">
+        <MdSearch />
+      </IconButton>
       <InputBase
         className={classes.input}
         placeholder="Search programs..."
         inputProps={{ 'aria-label': 'search programs' }}
       />
-      <IconButton className={classes.iconButton} aria-label="search">
-        <MdSearch />
-      </IconButton>
     </Paper>
   )
 }
