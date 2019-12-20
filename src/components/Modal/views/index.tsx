@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 
 import { useModal } from '../context'
 import { ExerciseForm } from './ExerciseForm'
+import { ProgramForm } from './ProgramForm'
 
 type Props = {
   isOpen: boolean
@@ -60,6 +61,8 @@ export const Modal: React.FC = () => {
     switch (type) {
       case 'exerciseForm':
         return <ExerciseForm {...data} />
+      case 'programForm':
+        return <ProgramForm {...data} />
       default:
         return null
     }
