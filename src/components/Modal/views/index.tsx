@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { MdClose } from 'react-icons/md'
 import IconButton from '@material-ui/core/IconButton'
@@ -37,19 +37,22 @@ const ContentContainer = styled.div`
 export const Modal: React.FC = () => {
   const { state: modal, closeModal } = useModal()
 
-  function handleKeydown(e: KeyboardEvent): void {
-    if (e.keyCode === 27) {
-      closeModal()
-    }
-  }
+  const handleKeydown = useCallback(
+    (e: KeyboardEvent): void => {
+      if (e.keyCode === 27) {
+        closeModal()
+      }
+    },
+    [closeModal]
+  )
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeydown, true)
+    document.addEventListener('keydown', handleKeydown)
 
     return () => {
-      document.removeEventListener('keydown', handleKeydown, true)
+      document.removeEventListener('keydown', handleKeydown)
     }
-  }, [])
+  }, [handleKeydown])
 
   function getComponent(type: string | undefined, data: any) {
     switch (type) {
