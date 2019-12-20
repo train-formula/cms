@@ -34,7 +34,6 @@ const StyledCheckbox = styled(Checkbox)`
 function Program() {
   const [elevation, setElevation] = useState(0)
   function handleMouseEnter() {
-    console.log('hover')
     setElevation(elevation ? 0 : 3)
   }
   return (

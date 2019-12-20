@@ -29,7 +29,7 @@ export const useModal = () => {
   if (!context) {
     throw new Error('useModal must be used within an ModalProvider')
   }
-  console.log(`i'm being used! :D`)
+
   const { state, dispatch } = context
 
   function openModal(payload: any) {

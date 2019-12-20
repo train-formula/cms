@@ -37,19 +37,19 @@ const ContentContainer = styled.div`
 export const Modal: React.FC = () => {
   const { state: modal, closeModal } = useModal()
 
-  function handleKeydown(e: React.KeyboardEvent): void {
+  function handleKeydown(e: KeyboardEvent): void {
     if (e.keyCode === 27) {
       closeModal()
     }
   }
 
-  // useEffect(() => {
-  //   document.addEventListener('keydown', handleKeydown, true)
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeydown, true)
 
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeydown, true)
-  //   }
-  // }, [])
+    return () => {
+      document.removeEventListener('keydown', handleKeydown, true)
+    }
+  }, [])
 
   function getComponent(type: string | undefined, data: any) {
     switch (type) {
