@@ -6,6 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { IoMdAdd } from 'react-icons/io'
 
 import Search from './Search'
+import { useModal } from '../Modal/context'
 
 const Container = styled.div`
   display: grid;
@@ -51,6 +52,8 @@ type Props = {
 }
 
 export const Header: React.FC<Props> = () => {
+  const { openModal } = useModal()
+
   return (
     <Container>
       <div className="left">

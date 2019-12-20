@@ -64,10 +64,10 @@ export const List: React.FC<Props> = () => {
   return (
     <Container>
       {Array.from({ length: 10 }).map((_, i) => (
-        <>
-          <Program key={i} />
+        <div key={i}>
+          <Program />
           <Divider />
-        </>
+        </div>
       ))}
     </Container>
   )
