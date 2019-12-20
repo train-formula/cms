@@ -60,7 +60,10 @@ export const Header: React.FC<Props> = () => {
         <Typography variant="h4" className="title">
           Programs
         </Typography>
-        <Tooltip title="create a program">
+        <Tooltip
+          title="create a program"
+          onClick={() => openModal({ type: 'exerciseForm' })}
+        >
           <Button variant="outlined">
             <IoMdAdd />
           </Button>
