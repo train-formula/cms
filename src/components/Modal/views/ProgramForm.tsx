@@ -72,15 +72,6 @@ const Field = styled.div<FieldProps>`
     color: #5f6368;
   }
 `
-const VideoURLField = styled(TextField)`
-  width: 100%;
-  padding-left: 0.2rem;
-  padding-top: 0.2rem;
-  font-weight: 700;
-  .MuiInputBase-root {
-    padding-left: 0.5rem;
-  }
-`
 const ImageUploadContainer = styled.div`
   width: 100%;
   height: 12rem;
@@ -103,21 +94,6 @@ const Save = styled(Button)`
 `
 
 export const ProgramForm: React.FC = () => {
-  const [videoEmbedId, setVideo] = useState<string | null>(null)
-
-  function getYTVideoId(e: React.ChangeEvent<HTMLInputElement>): void {
-    const url = e.currentTarget.value
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=)([^#]*).*/
-    const match = url.match(regExp)
-
-    if (match && match[2].length === 11) {
-      setVideo(match[2])
-    } else {
-      // TODO handle error
-      console.log('error')
-    }
-  }
-
   return (
     <Container>
       <NameField placeholder="Add program name" />
