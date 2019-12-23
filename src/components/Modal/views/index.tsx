@@ -6,13 +6,14 @@ import IconButton from '@material-ui/core/IconButton'
 import { useModal } from '../context'
 import { ExerciseForm } from './ExerciseForm'
 import { ProgramForm } from './ProgramForm'
+import { PrescriptionForm } from './PrescriptionForm'
 
 type Props = {
   isOpen: boolean
 }
 const Container = styled.div<Props>`
   position: absolute;
-  z-index: ${p => (p.isOpen ? 9999 : -1)};
+  z-index: ${p => (p.isOpen ? 1 : -1)};
   top: 0;
   height: 100vh;
   width: 100vw;
@@ -63,6 +64,8 @@ export const Modal: React.FC = () => {
         return <ExerciseForm {...data} />
       case 'programForm':
         return <ProgramForm {...data} />
+      case 'prescriptionForm':
+        return <PrescriptionForm {...data} />
       default:
         return null
     }

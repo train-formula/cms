@@ -4,7 +4,7 @@
 #nprogress .bar {
   background: #ff0000;
   position: fixed;
-  z-index: 9999999999;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100%;

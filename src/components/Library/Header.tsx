@@ -46,7 +46,7 @@ export const Header: React.FC<Props> = () => {
         className="zIndex1"
         variant="extended"
         aria-label="create a program"
-        onClick={() => openModal({ type: 'programForm' })}
+        onClick={() => openModal({ type: 'prescriptionForm' })}
       >
         <IoMdAdd className="add-icon" />
         Create a program
