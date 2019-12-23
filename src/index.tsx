@@ -6,17 +6,20 @@ import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
 import { App } from './App'
 import { StyledComponentsGlobalStyles, MuiTheme } from './globalStyles'
 import { ModalProvider } from './components/Modal/context'
+import { ApolloHOC } from './lib/apollo'
 
 ReactDOM.render(
-  <StylesProvider injectFirst>
-    <ThemeProvider theme={MuiTheme}>
-      <StyledComponentsGlobalStyles />
-      <Router>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
-      </Router>
-    </ThemeProvider>
-  </StylesProvider>,
+  <ApolloHOC>
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={MuiTheme}>
+        <StyledComponentsGlobalStyles />
+        <Router>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </Router>
+      </ThemeProvider>
+    </StylesProvider>
+  </ApolloHOC>,
   document.querySelector('#root')
 )
