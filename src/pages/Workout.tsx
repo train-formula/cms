@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom'
 
 const Container = styled.div``
 
-export const Program: React.FC = () => {
+export const Workout: React.FC = () => {
   const { id } = useParams()
 
   return (
     <Container>
-      <h1>Program {id} - calendar goes here</h1>
+      <h1>Workout {id} - workout builder goes here</h1>
     </Container>
   )
 }
