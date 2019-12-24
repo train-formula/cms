@@ -11,8 +11,6 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputBase from '@material-ui/core/InputBase'
 
-import { Prescription } from './store'
-
 const BootstrapInput = withStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -23,7 +21,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
     input: {
       position: 'relative',
       border: 'none',
-      fontSize: '10px',
+      fontSize: '1.4rem',
       color: '#808080',
       fontWeight: 'bold',
       textTransform: 'uppercase',

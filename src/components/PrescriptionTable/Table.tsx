@@ -46,6 +46,10 @@ const Set = styled.div<SetProps>`
       outline: none;
     }
   }
+  .cell {
+    padding: 0.5rem 0;
+    font-size: 1.4rem;
+  }
 `
 Set.defaultProps = {
   theme: {
@@ -66,8 +70,9 @@ export const Table: React.FC<Props> = ({ prescription }) => {
       {prescription.sets.map(({ order, parameter1, parameter2 }, i) => (
         <Set key={i} order={order}>
           <div className="cell set-count">{order}</div>
+
           <input className="cell parameter1" value={parameter1} />
-          <input className="cell parameter2" value={parameter2} />
+          <input className="cell parameter2" value={parameter2 && parameter2} />
         </Set>
       ))}
     </Container>

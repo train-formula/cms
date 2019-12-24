@@ -3,8 +3,8 @@ import React from 'react'
 // state
 interface PrescriptionSet {
   order: number | undefined
-  parameter1: number | undefined
-  parameter2?: number | undefined
+  parameter1: number | undefined | string
+  parameter2?: number | undefined | string
 }
 
 interface PrescriptionParameter {
@@ -40,8 +40,23 @@ export const reducer: React.Reducer<Prescription, PrescriptionAction> = (
 ) => {
   switch (type) {
     case PrescriptionActionTypes.UPDATE_SET_COUNT: {
-      console.log('payload', payload)
-      return prescription
+      const { setCount } = payload
+      const sets = Array.from({ length: 10 }, (_, index) => {
+        const set = prescription.sets[index]
+        if (index < setCount && set.order) {
+          return set
+        } else if (index < setCount && !set.order) {
+          return { order: index + 1, parameter1: 0, parameter2: 0 }
+        } else {
+          return {
+            order: undefined,
+            parameter1: '',
+            parameter2: '',
+          }
+        }
+      })
+
+      return { ...prescription, sets }
     }
     case PrescriptionActionTypes.SELECT_PARAMETER_TYPE: {
       console.log('payload', payload)
