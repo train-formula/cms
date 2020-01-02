@@ -6,7 +6,7 @@ import { Drawer } from '../Drawer'
 const Container = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 75px 1fr;
 `
 
 type Props = {

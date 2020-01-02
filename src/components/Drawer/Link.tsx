@@ -15,8 +15,9 @@ const Container = styled(NavLink)`
   cursor: pointer;
   text-decoration: none;
   .icon {
-    height: 3rem;
-    width: 3rem;
+    height: 2.25rem;
+    width: 2.25rem;
+    margin-bottom: 0.5rem;
   }
   &.active,
   &:hover {
