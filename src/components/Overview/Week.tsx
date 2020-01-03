@@ -127,37 +127,37 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
               onClick={handleClick}
               disableRipple={true}
             >
-              <Menu
-                id="workout-menu"
-                className="menu-options"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>
-                  <MdEditIcon />
-                  Edit
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <MdContentCopyIcon />
-                  Copy
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <MdRepeatIcon />
-                  Repeat
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleClose}>
-                  <MdDeleteIcon />
-                  Delete
-                </MenuItem>
-              </Menu>
               <Workout workout={workout} />
             </Button>
           </div>
         ))}
       </Schedule>
+      <Menu
+        id="workout-menu"
+        className="menu-options"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          <MdEditIcon />
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <MdContentCopyIcon />
+          Copy
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <MdRepeatIcon />
+          Repeat
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleClose}>
+          <MdDeleteIcon />
+          Delete
+        </MenuItem>
+      </Menu>
     </Container>
   )
 }

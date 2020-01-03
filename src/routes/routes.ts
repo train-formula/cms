@@ -4,13 +4,13 @@ import { MdDns } from 'react-icons/md'
 import { FaDumbbell, FaPrescription } from 'react-icons/fa'
 
 import { Programs } from '../pages/Programs'
-import { Program } from '../pages/Program'
 import { Exercises } from '../pages/Exercises'
 import { Exercise } from '../pages/Exercise'
 import { Categories } from '../pages/Categories'
 import { Category } from '../pages/Category'
 import { Prescriptions } from '../pages/Prescriptions'
 import { Workout } from '../pages/Workout'
+import { Program } from '../pages/Program'
 
 interface IconProps {
   className?: string
