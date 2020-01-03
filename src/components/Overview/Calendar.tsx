@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
