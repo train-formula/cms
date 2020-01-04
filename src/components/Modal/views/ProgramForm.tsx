@@ -5,7 +5,8 @@ import CreatableSelect from 'react-select/creatable'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { IoMdList, IoMdSpeedometer } from 'react-icons/io'
+import { IoMdList } from 'react-icons/io'
+import { MdPeople } from 'react-icons/md'
 import { FiTag, FiTarget } from 'react-icons/fi'
 import { FaRegCalendarAlt, FaImage } from 'react-icons/fa'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
@@ -17,6 +18,11 @@ const tagOptions = [
   { value: 'strength-power', label: 'Booty Gains' },
   { value: 'conditioning', label: 'Increase Power' },
   { value: 'recovery', label: 'Improve Mobility' },
+]
+const audienceOptions = [
+  { value: 'beginner', label: 'beginner' },
+  { value: 'intermediate', label: 'intermediate' },
+  { value: 'advanced', label: 'advanced' },
 ]
 
 const selectStyles = {
@@ -135,9 +141,9 @@ export const ProgramForm: React.FC = () => {
         />
       </Field>
       <Field>
-        <IoMdSpeedometer className="field-icon" />
+        <MdPeople className="field-icon" />
         <Select
-          options={tagOptions}
+          options={audienceOptions}
           classNamePrefix="react-select"
           placeholder="Target Audience"
           styles={selectStyles}
