@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
@@ -8,6 +8,9 @@ import Divider from '@material-ui/core/Divider'
 import { MdEdit, MdContentCopy, MdRepeat, MdDelete } from 'react-icons/md'
 
 import { Workout } from './Workout'
+import { useModal } from '../Modal/context'
+import { useDialog } from '../Dialog/context'
+import { useSnackbar } from '../Snackbar/context'
 
 const Container = styled.div`
   padding: 0 1rem;
@@ -81,14 +84,54 @@ type Props = {
 export const Week: React.FC<Props> = ({ selectedWeek }) => {
   const dayLabels = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
 
+  const [selectedWorkout, setSelectedWorkout] = useState(0)
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (id: number) => (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setSelectedWorkout(id)
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const { openModal } = useModal()
+  const { openDialog } = useDialog()
+  const { openSnackbar } = useSnackbar()
+
+  const onEditClick = () => {
+    setAnchorEl(null)
+    openModal({ type: 'workoutForm' })
+  }
+  const onCopyClick = () => {
+    setAnchorEl(null)
+    openSnackbar({
+      payload: { message: `Workout Day ${selectedWorkout} copied` },
+    })
+  }
+  const onRepeatClick = () => {
+    setAnchorEl(null)
+    openDialog({
+      type: 'repeatForm',
+      payload: { title: `Repeat Day ${selectedWorkout} Workout` },
+    })
+  }
+  const onDeleteClick = () => {
+    setAnchorEl(null)
+    openDialog({
+      type: 'deleteForm',
+      payload: {
+        title: `Delete ${selectedWorkout} Workout?`,
+        action: () =>
+          openSnackbar({
+            payload: { message: `Workout Day ${selectedWorkout} deleted` },
+          }),
+      },
+    })
   }
 
   return (
@@ -124,7 +167,7 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
               className="button"
               aria-controls="workout-menu"
               aria-haspopup="true"
-              onClick={handleClick}
+              onClick={handleClick(workout.id)}
               disableRipple={true}
             >
               <Workout workout={workout} />
@@ -140,20 +183,20 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onEditClick}>
           <MdEditIcon />
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onCopyClick}>
           <MdContentCopyIcon />
           Copy
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onRepeatClick}>
           <MdRepeatIcon />
           Repeat
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={onDeleteClick}>
           <MdDeleteIcon />
           Delete
         </MenuItem>

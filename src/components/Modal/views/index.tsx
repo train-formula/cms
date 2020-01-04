@@ -7,6 +7,7 @@ import { useModal } from '../context'
 import { ExerciseForm } from './ExerciseForm'
 import { ProgramForm } from './ProgramForm'
 import { PrescriptionForm } from './PrescriptionForm'
+import { WorkoutForm } from './WorkoutForm'
 
 type Props = {
   isOpen: boolean
@@ -66,6 +67,8 @@ export const Modal: React.FC = () => {
         return <ProgramForm {...data} />
       case 'prescriptionForm':
         return <PrescriptionForm {...data} />
+      case 'workoutForm':
+        return <WorkoutForm {...data} />
       default:
         return null
     }
