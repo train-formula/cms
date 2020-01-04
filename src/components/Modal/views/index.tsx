@@ -32,8 +32,8 @@ const CloseIcon = styled(MdClose)`
   width: 3rem;
 `
 const ContentContainer = styled.div`
-  height: 100%;
-  padding: 8rem 12rem;
+  // height: 100%;
+  // padding: 8rem 12rem;
 `
 
 export const Modal: React.FC = () => {

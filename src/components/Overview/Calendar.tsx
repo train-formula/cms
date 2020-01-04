@@ -6,9 +6,12 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import { Workout } from './Workout'
 
-const Container = styled.div`
+type ContainerProps = {
+  large?: boolean
+}
+const Container = styled.div<ContainerProps>`
   padding: 1rem 2rem;
-  width: 20rem;
+  width: ${p => (p.large ? `auto` : `20rem`)};
   .header {
     display: flex;
     justify-content: space-between;
@@ -28,6 +31,7 @@ const Container = styled.div`
 `
 type WeekProps = {
   isActive: boolean
+  large?: boolean
 }
 const Week = styled.div<WeekProps>`
   .week-header {
@@ -44,7 +48,12 @@ const Week = styled.div<WeekProps>`
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.2rem;
+      ${p =>
+        p.large
+          ? `font-size: 1.6rem;
+        height: 4rem;
+        width: 4rem;`
+          : `font-size: 1.2rem;`}
       cursor: pointer;
       border-radius: 50%;
       &:hover {
@@ -66,6 +75,7 @@ type Props = {
   }
   selectWeek: (id: number) => () => void
   weeks: any[]
+  large?: boolean
 }
 
 export const Calendar: React.FC<Props> = ({
@@ -73,6 +83,7 @@ export const Calendar: React.FC<Props> = ({
   weeks,
   selectedWeek,
   selectWeek,
+  large,
 }) => {
   const [pagination, setPagination] = useState(0)
   const [selectedMonth, selectWeeks] = useState(
@@ -119,7 +130,7 @@ export const Calendar: React.FC<Props> = ({
   }
 
   return (
-    <Container>
+    <Container large={large}>
       <div className="header">
         <Typography className="title" variant="overline">
           {programLength} week program
@@ -144,6 +155,7 @@ export const Calendar: React.FC<Props> = ({
       {selectedMonth.map(week => (
         <Week
           key={week.id}
+          large={large}
           isActive={week.id === selectedWeek.id}
           onClick={selectWeek(week.id)}
         >
