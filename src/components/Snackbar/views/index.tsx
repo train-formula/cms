@@ -50,9 +50,9 @@ export const SnackbarView: React.FC = () => {
         </span>
       }
       action={[
-        <Button key="undo" color="secondary" size="small" onClick={handleClose}>
-          UNDO
-        </Button>,
+        // <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+        //   UNDO
+        // </Button>,
         <IconButton
           key="close"
           aria-label="close"

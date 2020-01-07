@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
 
-import { Calendar } from '../../Overview/Calendar'
+import { Calendar } from '../../../Overview/Calendar'
+import { WorkoutBuilder } from './WorkoutBuilder'
 
 const Container = styled.div`
   display: grid;
@@ -102,7 +103,7 @@ export const WorkoutForm: React.FC = () => {
           large={true}
         />
       </StyledPaper>
-      <div>WorkoutForm</div>
+      <WorkoutBuilder />
     </Container>
   )
 }

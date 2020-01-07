@@ -45,6 +45,7 @@ const Container = styled.div`
   grid-auto-columns: max-content;
   justify-content: center;
   grid-gap: 2rem;
+  padding: 5rem;
 `
 const NameField = styled(TextField)`
   .MuiInputBase-root {
@@ -155,7 +156,7 @@ export const ProgramForm: React.FC = () => {
           isMulti
           options={tagOptions}
           classNamePrefix="react-select"
-          placeholder="Add goal(s)"
+          placeholder="Add training goal(s)"
           styles={selectStyles}
         />
       </Field>

@@ -3,25 +3,36 @@ import styled from 'styled-components'
 import Checkbox from '@material-ui/core/Checkbox'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
 import { Paper } from '@material-ui/core'
+import { MdContentCopy, MdDelete, MdSettings } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   display: grid;
+  .link {
+    text-decoration: none;
+  }
 `
 const RowLayout = styled(Paper)`
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr 1fr 1fr 2fr 1fr;
   align-items: center;
   color: #5f6368;
   padding: 0.5rem 1rem;
   background: rgba(242, 245, 245, 0.8);
+  .title {
+    color: #202124;
+  }
   &:hover {
     cursor: pointer;
     z-index: 1;
-    background: #fff;
-  }
-  .title {
-    color: #202124;
+    // background: #fff;
+    .author {
+      display: none;
+    }
   }
 `
 const StyledCheckbox = styled(Checkbox)`
@@ -31,7 +42,41 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `
 
-function Program() {
+const ActionsContainer = styled.div`
+  display: none;
+  ${RowLayout}:hover & {
+    display: block;
+  }
+  .MuiIconButton-root {
+    padding: 0.8rem;
+  }
+`
+
+type ActionProps = {}
+const Actions: React.FC<ActionProps> = () => {
+  return (
+    <ActionsContainer>
+      <Tooltip title="copy">
+        <IconButton>
+          <MdContentCopy />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="delete">
+        <IconButton>
+          <MdDelete />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="settings">
+        <IconButton>
+          <MdSettings />
+        </IconButton>
+      </Tooltip>
+    </ActionsContainer>
+  )
+}
+
+type ProgramProps = {}
+const Program: React.FC<ProgramProps> = () => {
   const [elevation, setElevation] = useState(0)
   function handleMouseEnter() {
     setElevation(elevation ? 0 : 3)
@@ -45,12 +90,15 @@ function Program() {
     >
       <StyledCheckbox />
       <Typography variant="body1" className="title">
-        30 Day Chest Sculpt
+        Step Up Strength
       </Typography>
       <Typography variant="body1">beginner</Typography>
       <Typography variant="body1">8 weeks</Typography>
-      <Typography variant="body1">chest, strength</Typography>
-      <Typography variant="body1">Alexander Saldivar</Typography>
+      <Typography variant="body1">chest, strength, lower body</Typography>
+      <Typography className="author" variant="body1">
+        Alexander Saldivar
+      </Typography>
+      <Actions />
     </RowLayout>
   )
 }
@@ -62,9 +110,11 @@ type Props = {
 export const List: React.FC<Props> = () => {
   return (
     <Container>
-      {Array.from({ length: 10 }).map((_, i) => (
+      {Array.from({ length: 1 }).map((_, i) => (
         <div key={i}>
-          <Program />
+          <Link to="/program/test" className="link">
+            <Program />
+          </Link>
           <Divider />
         </div>
       ))}
