@@ -52,7 +52,7 @@ const selectStyles = {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 2fr 1fr;
   .actions {
     display: flex;
     justify-self: flex-end;

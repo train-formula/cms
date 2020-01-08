@@ -25,7 +25,6 @@ const BootstrapInput = withStyles((theme: Theme) =>
       fontSize: '1.4rem',
       color: '#808080',
       fontWeight: 'bold',
-      textTransform: 'uppercase',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
       // Use the system font instead of the default Roboto font.
       fontFamily: [
@@ -47,7 +46,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
   })
 )(InputBase)
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
