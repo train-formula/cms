@@ -17,6 +17,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
       'label + &': {
         marginTop: theme.spacing(3),
       },
+      display: 'grid',
     },
     input: {
       position: 'relative',

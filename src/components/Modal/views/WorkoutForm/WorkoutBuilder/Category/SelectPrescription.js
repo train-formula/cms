@@ -281,9 +281,13 @@ const Option = styled.div`
 `
 function FilterOption(props) {
   const defaultStyles = props.getStyles('option', props)
-  console.log(defaultStyles)
+  function selectOption() {
+    console.log(props)
+    console.log(props.prescription)
+    props.setValue({ value: 'fart', label: 'Fuck' })
+  }
   return (
-    <Option {...props} defaultStyles={defaultStyles}>
+    <Option {...props} defaultStyles={defaultStyles} onClick={selectOption}>
       {props.prescription}
     </Option>
   )
@@ -299,8 +303,10 @@ function PrescriptionFilters(props) {
   // console.log(props)
   return (
     <FilterMenu {...props}>
-      {/* <FilterLabel>7 filters applied</FilterLabel> */}
-      {/* <Divider /> */}
+      <FilterLabel>
+        {props.prescriptions.length} prescriptions shown
+      </FilterLabel>
+      <Divider />
       <components.MenuList {...props} isOptionDisabled={true} isDisabled={true}>
         {props.prescriptions.map(prescription => (
           // <FilterOption {...props} tag={tag}>
@@ -391,6 +397,8 @@ export default function SelectPrescription() {
       setSelectedOptionValues={setSelectedOptionValues}
       prescriptions={prescriptions}
       isOptionDisabled={true}
+      // value={{ value: 'one', label: 'One' }}
+      isSearchable={false}
       components={{
         Menu: CustomMenu,
         Option: PrescriptionOption,

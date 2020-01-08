@@ -59,9 +59,11 @@ const Container = styled.div`
   }
 `
 
-type Props = {}
+type Props = {
+  toggleDetailsVisible: () => void
+}
 
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC<Props> = ({ toggleDetailsVisible }) => {
   function handleChange(newValue: any, actionMeta: any) {
     // save category here
     // snack
@@ -88,7 +90,7 @@ export const Header: React.FC<Props> = () => {
             <MdDelete />
           </IconButton>
         </Tooltip>
-        <Tooltip title="hide exercise details">
+        <Tooltip title="hide exercise details" onClick={toggleDetailsVisible}>
           <IconButton>
             <IoMdEyeOff />
           </IconButton>
