@@ -10,7 +10,7 @@ const Container = styled.div`
   grid-template-columns: min-content 1fr;
 `
 const StyledPaper = styled(Paper)`
-  height: 100vh;
+  height: 100%;
   border-radius: 0;
 `
 

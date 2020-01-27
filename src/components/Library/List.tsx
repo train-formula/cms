@@ -75,8 +75,10 @@ const Actions: React.FC<ActionProps> = () => {
   )
 }
 
-type ProgramProps = {}
-const Program: React.FC<ProgramProps> = () => {
+type ProgramProps = {
+  item: { [key: string]: any }
+}
+const Program: React.FC<ProgramProps> = ({ item }) => {
   const [elevation, setElevation] = useState(0)
   function handleMouseEnter() {
     setElevation(elevation ? 0 : 3)
@@ -90,7 +92,7 @@ const Program: React.FC<ProgramProps> = () => {
     >
       <StyledCheckbox />
       <Typography variant="body1" className="title">
-        Step Up Strength
+        {item.name}
       </Typography>
       <Typography variant="body1">beginner</Typography>
       <Typography variant="body1">8 weeks</Typography>
@@ -105,15 +107,16 @@ const Program: React.FC<ProgramProps> = () => {
 
 type Props = {
   className?: string
+  items: { [key: string]: any }[]
 }
 
-export const List: React.FC<Props> = () => {
+export const List: React.FC<Props> = ({ items }) => {
   return (
     <Container>
-      {Array.from({ length: 1 }).map((_, i) => (
-        <div key={i}>
-          <Link to="/program/test" className="link">
-            <Program />
+      {items.map(item => (
+        <div key={item.id}>
+          <Link to={`/program/${item.id}`} className="link">
+            <Program item={item} />
           </Link>
           <Divider />
         </div>

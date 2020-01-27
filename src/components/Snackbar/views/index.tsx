@@ -1,15 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import Snackbar from '@material-ui/core/Snackbar'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { MdClose } from 'react-icons/md'
 
 import { useSnackbar } from '../context'
-import { RepeatForm } from './RepeatForm'
-import { CancelForm } from './CancelForm'
+// import { RepeatForm } from './RepeatForm'
+// import { CancelForm } from './CancelForm'
 
-const Container = styled.div``
+// const Container = styled.div``
 
 export const SnackbarView: React.FC = () => {
   const { state: snackbar, closeSnackbar } = useSnackbar()
@@ -18,19 +18,19 @@ export const SnackbarView: React.FC = () => {
     closeSnackbar()
   }
 
-  function getComponent(
-    type: string | undefined,
-    data: { [key: string]: any }
-  ): React.ReactNode {
-    switch (type) {
-      case 'repeatForm':
-        return <RepeatForm {...data} />
-      case 'cancelForm':
-        return <CancelForm {...data} />
-      default:
-        return null
-    }
-  }
+  // function getComponent(
+  //   type: string | undefined,
+  //   data: { [key: string]: any }
+  // ): React.ReactNode {
+  //   switch (type) {
+  //     case 'repeatForm':
+  //       return <RepeatForm {...data} />
+  //     case 'cancelForm':
+  //       return <CancelForm {...data} />
+  //     default:
+  //       return null
+  //   }
+  // }
 
   return (
     <Snackbar

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Select, { components } from 'react-select'
 import styled from 'styled-components'
 import Divider from '@material-ui/core/Divider'
-import Checkbox from '@material-ui/core/Checkbox'
 
 // import { useModal } from '../Modal/context'
 

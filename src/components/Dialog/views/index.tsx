@@ -1,16 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import Dialog from '@material-ui/core/Dialog'
 import Button from '@material-ui/core/Button'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 import { useDialog } from '../context'
 import { RepeatForm } from './RepeatForm'
 
-const Container = styled.div``
+// const Container = styled.div``
 
 export const DialogView: React.FC = () => {
   const { state: dialog, closeDialog } = useDialog()
@@ -56,6 +55,8 @@ export const DialogView: React.FC = () => {
           </DialogActions>
         </>
       )}
+      {/* needed for material-ui */}
+      <div></div>
     </Dialog>
   )
 }

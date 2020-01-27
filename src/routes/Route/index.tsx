@@ -4,7 +4,8 @@ import nprogress from 'nprogress'
 import './nprogress.css'
 
 export class Route extends React.Component {
-  componentWillMount() {
+  constructor(props: any) {
+    super(props)
     nprogress.start()
   }
 

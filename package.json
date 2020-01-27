@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "graphql-build": "./gen_graphql.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +40,7 @@
     "apollo-link-error": "^1.1.12",
     "apollo-link-http": "^1.5.16",
     "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
     "nprogress": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -51,6 +53,15 @@
     "typescript": "~3.7.2"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "^1.11.2",
+    "@graphql-codegen/cli": "^1.11.2",
+    "@graphql-codegen/fragment-matcher": "^1.11.2",
+    "@graphql-codegen/import-types-preset": "^1.11.2",
+    "@graphql-codegen/introspection": "^1.11.2",
+    "@graphql-codegen/near-operation-file-preset": "^1.11.2",
+    "@graphql-codegen/typescript": "^1.11.2",
+    "@graphql-codegen/typescript-operations": "^1.11.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.11.2",
     "@types/nprogress": "^0.2.0",
     "@types/react-icons": "^3.0.0",
     "@types/react-router": "^5.1.3",

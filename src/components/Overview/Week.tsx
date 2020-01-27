@@ -141,6 +141,7 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
           <div className="labels-name">
             {dayLabels.map(day => (
               <Typography
+                key={day}
                 variant="overline"
                 align="center"
                 className="label-text"
@@ -151,7 +152,12 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
           </div>
           <div className="labels-count">
             {selectedWeek.workouts.map((workout: any) => (
-              <Button size="small" disableRipple={true} onClick={onEditClick}>
+              <Button
+                key={workout.order}
+                size="small"
+                disableRipple={true}
+                onClick={onEditClick}
+              >
                 <Typography variant="overline" align="center" className="label">
                   {workout.order}
                 </Typography>

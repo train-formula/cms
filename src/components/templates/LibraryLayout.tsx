@@ -18,10 +18,10 @@ const Container = styled.div`
 `
 
 type Props = {
-  children: React.ReactNode
+  items: { [key: string]: any }[]
 }
 
-export const LibraryLayout: React.FC<Props> = ({ children }) => {
+export const LibraryLayout: React.FC<Props> = ({ items }) => {
   return (
     <Container>
       <Header />
@@ -30,7 +30,7 @@ export const LibraryLayout: React.FC<Props> = ({ children }) => {
       <Divider />
       <Filters />
       <Divider />
-      <List className="scroll" />
+      <List className="scroll" items={items} />
     </Container>
   )
 }

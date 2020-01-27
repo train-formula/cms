@@ -6,9 +6,20 @@ import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { MdSettings } from 'react-icons/md'
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
 import { Calendar } from '../components/Overview/Calendar'
 import { Week } from '../components/Overview/Week'
+
+const GET_PROGRAMS = gql`
+  query getPrograms($id: ID!) {
+    workoutProgram(id: $id) {
+      name
+      numberOfDays
+    }
+  }
+`
 
 const Container = styled.div`
   display: flex;
@@ -46,6 +57,17 @@ const Header = styled.div`
 
 export const Program: React.FC = () => {
   const { id } = useParams()
+
+  const { data } = useQuery(GET_PROGRAMS, {
+    variables: { id },
+  })
+
+  // console.log('data:', data)
+
+  // const [weeks, setWeeks] = useState(0)
+  // useEffect(() => {
+
+  // }, [data])
 
   // get program workouts
   const workouts = Array.from({ length: 53 }, (_, i) => ({
@@ -127,7 +149,7 @@ export const Program: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Typography variant="h4">Step Up Strength</Typography>
+        <Typography variant="h4">{data && data.workoutProgram.name}</Typography>
         <div className="controls">
           <Typography variant="h4" className="week-name">
             Week {selectedWeek.order}

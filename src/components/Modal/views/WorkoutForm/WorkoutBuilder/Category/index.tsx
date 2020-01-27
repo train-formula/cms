@@ -31,7 +31,7 @@ const Content = styled.div<ContentProps>`
   .icon {
     position: absolute;
     transform: translateX(-125%);
-    height: 100%;
+    height: calc(100% + 1.6rem);
     &:after {
       content: '';
       position: absolute;
@@ -65,6 +65,21 @@ export const Category: React.FC<Props> = () => {
   return (
     <Container>
       <Header toggleDetailsVisible={toggleDetailsVisible} />
+      <Content exerciseDetailsVisible={exerciseDetailsVisible}>
+        <div className="row">
+          <SelectExercise />
+          <SelectPrescription />
+        </div>
+        <div className="row meta">
+          <ExerciseNotes />
+          <PrescriptionTable />
+        </div>
+        <Tooltip placement="left" title="superset">
+          <div className="icon">
+            <OrderIcon />
+          </div>
+        </Tooltip>
+      </Content>
       <Content exerciseDetailsVisible={exerciseDetailsVisible}>
         <div className="row">
           <SelectExercise />

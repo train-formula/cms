@@ -97,7 +97,7 @@ export const Calendar: React.FC<Props> = ({
   }
   useEffect(() => {
     selectWeeks(weeks.slice(pagination, pagination + 4))
-  }, [pagination])
+  }, [pagination, weeks])
 
   // const [isHidden, hideArrow] = useState(false)
   // useEffect(() => {
@@ -122,6 +122,7 @@ export const Calendar: React.FC<Props> = ({
         setSelectedWorkout(workout)
         return true
       }
+      return false
     })
   }
 

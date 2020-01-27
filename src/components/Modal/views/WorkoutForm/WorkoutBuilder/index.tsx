@@ -10,6 +10,8 @@ const Container = styled.div`
   width: 80%;
   display: grid;
   grid-gap: 4rem;
+  height: 100vh;
+  overflow: scroll;
 `
 const WorkoutTitleField = styled(TextField)`
   .MuiInput-input {

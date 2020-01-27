@@ -10,6 +10,7 @@ import { MdPeople } from 'react-icons/md'
 import { FiTag, FiTarget } from 'react-icons/fi'
 import { FaRegCalendarAlt, FaImage } from 'react-icons/fa'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
+import { useCreateProgramMutation } from '../../../graphql/mutations/generated/CreateProgram.gql.generated'
 
 const tagOptions = [
   { value: 'warm-up', label: 'Build Muscle' },
@@ -101,6 +102,19 @@ const Save = styled(Button)`
 `
 
 export const ProgramForm: React.FC = () => {
+  const [createProgram] = useCreateProgramMutation()
+  function handleClick() {
+    createProgram({
+      variables: {
+        trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
+        name: 'Crossfit for Humans',
+        description: 'Crossfit for Humans',
+        startsWhenCustomerStarts: true,
+        numberOfDays: 45,
+      },
+    })
+  }
+
   return (
     <Container>
       <NameField placeholder="Add program name" />
@@ -172,7 +186,7 @@ export const ProgramForm: React.FC = () => {
           </Typography>
         </ImageUploadContainer>
       </Field>
-      <Save variant="contained" color="primary">
+      <Save variant="contained" color="primary" onClick={handleClick}>
         create program
       </Save>
     </Container>
