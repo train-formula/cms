@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { LibraryLayout } from '../components/templates/LibraryLayout'
-import { useGetProgramsQuery } from '../graphql/queries/generated/GetPrograms.gql.generated'
 import { flattenEdges } from '../lib/flattenEdges'
+import { useGetDetailProgramsQuery } from '../graphql/queries/generated/GetDetailPrograms.gql.generated'
 
 const Container = styled.div`
   height: 100%;
@@ -13,7 +13,7 @@ const Container = styled.div`
 `
 
 export const Programs: React.FC = () => {
-  const { data } = useGetProgramsQuery({
+  const { data } = useGetDetailProgramsQuery({
     variables: {
       trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
       first: 10,

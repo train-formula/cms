@@ -41,6 +41,28 @@ export type CreateExercise = {
   tags?: Maybe<Array<Scalars['ID']>>
 }
 
+export type CreatePlan = {
+  trainerOrganizationID: Scalars['ID']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  registrationAvailable: Scalars['Boolean']
+  inventory?: Maybe<Scalars['Int']>
+  tags?: Maybe<Array<Scalars['ID']>>
+}
+
+export type CreatePlanSchedule = {
+  trainerOrganizationID: Scalars['ID']
+  planID: Scalars['ID']
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  paymentInterval: DiurnalIntervalInput
+  pricePerInterval: Scalars['Int']
+  priceMarkedDownFrom?: Maybe<Scalars['Int']>
+  durationInterval?: Maybe<DiurnalIntervalInput>
+  registrationAvailable: Scalars['Boolean']
+  inventory?: Maybe<Scalars['Int']>
+}
+
 export type CreatePrescription = {
   trainerOrganizationID: Scalars['ID']
   name: Scalars['String']
@@ -100,6 +122,19 @@ export type CreateWorkoutProgram = {
   tags?: Maybe<Array<Scalars['ID']>>
 }
 
+export type DiurnalInterval = {
+  __typename?: 'DiurnalInterval'
+  interval?: Maybe<DiurnalIntervalInterval>
+  count: Scalars['Int']
+}
+
+export type DiurnalIntervalInput = {
+  interval?: Maybe<DiurnalIntervalInterval>
+  count: Scalars['Int']
+}
+
+export type DiurnalIntervalInterval = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR'
+
 export type EditExercise = {
   id: Scalars['ID']
   name?: Maybe<Scalars['String']>
@@ -107,11 +142,33 @@ export type EditExercise = {
   videoURL?: Maybe<NullableStringEditor>
 }
 
+export type EditPlan = {
+  id: Scalars['ID']
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<NullableStringEditor>
+  registrationAvailable?: Maybe<Scalars['Boolean']>
+}
+
+export type EditPlanSchedule = {
+  id: Scalars['ID']
+  name?: Maybe<NullableStringEditor>
+  description?: Maybe<NullableStringEditor>
+  priceMarkedDownFrom?: Maybe<NullableIntEditor>
+  registrationAvailable?: Maybe<Scalars['Boolean']>
+}
+
 export type EditPrescription = {
   id: Scalars['ID']
   name?: Maybe<Scalars['String']>
   prescriptionCategory?: Maybe<Scalars['String']>
   durationSeconds?: Maybe<NullableIntEditor>
+}
+
+export type EditPrescriptionSet = {
+  id: Scalars['ID']
+  setNumber?: Maybe<Scalars['Int']>
+  primaryParameter?: Maybe<AttachUnitData>
+  secondaryParameter?: Maybe<NullableAttachUnitData>
 }
 
 export type EditWorkout = {
@@ -178,10 +235,17 @@ export type Mutation = {
   createExercise?: Maybe<Exercise>
   editExercise?: Maybe<Exercise>
   deleteExercise?: Maybe<Scalars['ID']>
+  createPlan?: Maybe<Plan>
+  editPlan?: Maybe<Plan>
+  archivePlan?: Maybe<Plan>
+  createPlanSchedule?: Maybe<PlanSchedule>
+  editPlanSchedule?: Maybe<PlanSchedule>
+  archivePlanSchedule?: Maybe<PlanSchedule>
   createPrescription?: Maybe<Prescription>
   editPrescription?: Maybe<Prescription>
   deletePrescription?: Maybe<Scalars['ID']>
   createPrescriptionSet?: Maybe<PrescriptionSet>
+  editPrescriptionSet?: Maybe<PrescriptionSet>
   deletePrescriptionSet?: Maybe<Scalars['ID']>
   createTag?: Maybe<Tag>
   createWorkout?: Maybe<Workout>
@@ -209,6 +273,30 @@ export type MutationDeleteExerciseArgs = {
   request: Scalars['ID']
 }
 
+export type MutationCreatePlanArgs = {
+  request: CreatePlan
+}
+
+export type MutationEditPlanArgs = {
+  request: EditPlan
+}
+
+export type MutationArchivePlanArgs = {
+  request: Scalars['ID']
+}
+
+export type MutationCreatePlanScheduleArgs = {
+  request: CreatePlanSchedule
+}
+
+export type MutationEditPlanScheduleArgs = {
+  request: EditPlanSchedule
+}
+
+export type MutationArchivePlanScheduleArgs = {
+  request: Scalars['ID']
+}
+
 export type MutationCreatePrescriptionArgs = {
   request: CreatePrescription
 }
@@ -223,6 +311,10 @@ export type MutationDeletePrescriptionArgs = {
 
 export type MutationCreatePrescriptionSetArgs = {
   request: CreatePrescriptionSet
+}
+
+export type MutationEditPrescriptionSetArgs = {
+  request: EditPrescriptionSet
 }
 
 export type MutationDeletePrescriptionSetArgs = {
@@ -309,6 +401,61 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean']
 }
 
+export type Plan = {
+  __typename?: 'Plan'
+  id: Scalars['ID']
+  createdAt: Scalars['Time']
+  updatedAt: Scalars['Time']
+  trainerOrganizationID: Scalars['ID']
+  name: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  registrationAvailable: Scalars['Boolean']
+  archived: Scalars['Boolean']
+  schedules?: Maybe<Array<PlanSchedule>>
+  tags?: Maybe<Array<Tag>>
+}
+
+export type PlanConnection = {
+  __typename?: 'PlanConnection'
+  totalCount: Scalars['Int']
+  edges: Array<PlanEdge>
+  pageInfo: PageInfo
+}
+
+export type PlanEdge = {
+  __typename?: 'PlanEdge'
+  cursor: Scalars['String']
+  node: Plan
+}
+
+export type PlanSchedule = {
+  __typename?: 'PlanSchedule'
+  id: Scalars['ID']
+  createdAt: Scalars['Time']
+  updatedAt: Scalars['Time']
+  trainerOrganizationID: Scalars['ID']
+  planID: Scalars['ID']
+  name?: Maybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
+  paymentInterval: DiurnalInterval
+  pricePerInterval: Scalars['Int']
+  priceMarkedDownFrom?: Maybe<Scalars['Int']>
+  durationInterval?: Maybe<DiurnalInterval>
+  registrationAvailable: Scalars['Boolean']
+  plan?: Maybe<Plan>
+}
+
+export type PlanSearchRequest = {
+  trainerOrganizationID: Scalars['ID']
+  tagUUIDs?: Maybe<Array<Scalars['ID']>>
+}
+
+export type PlanSearchResults = {
+  __typename?: 'PlanSearchResults'
+  tag_facet?: Maybe<TagFacet>
+  results: PlanConnection
+}
+
 export type Prescription = {
   __typename?: 'Prescription'
   id: Scalars['ID']
@@ -367,6 +514,9 @@ export type Query = {
   exerciseSearch?: Maybe<ExerciseSearchResults>
   organization?: Maybe<Organization>
   organizationAvailableTags?: Maybe<TagConnection>
+  plan?: Maybe<Plan>
+  planSearch?: Maybe<PlanSearchResults>
+  planSchedule?: Maybe<PlanSchedule>
   prescription?: Maybe<Prescription>
   prescriptionSearch?: Maybe<PrescriptionSearchResults>
   tag?: Maybe<Tag>
@@ -398,6 +548,20 @@ export type QueryOrganizationAvailableTagsArgs = {
   id: Scalars['ID']
   first: Scalars['Int']
   after?: Maybe<Scalars['String']>
+}
+
+export type QueryPlanArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryPlanSearchArgs = {
+  request: PlanSearchRequest
+  first: Scalars['Int']
+  after?: Maybe<Scalars['String']>
+}
+
+export type QueryPlanScheduleArgs = {
+  id: Scalars['ID']
 }
 
 export type QueryPrescriptionArgs = {

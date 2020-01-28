@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
-import { BasicProgramFields } from '../fragments/BasicProgramFields.gql'
+import { DetailProgramFields } from '../fragments/DetailProgramFields.gql'
 
-export const GetPrograms = gql`
-  query GetPrograms($trainerOrganizationID: ID!, $first: Int!) {
+export const GetDetailPrograms = gql`
+  query GetDetailPrograms($trainerOrganizationID: ID!, $first: Int!) {
     workoutProgramSearch(
       request: { trainerOrganizationID: $trainerOrganizationID }
       first: $first
@@ -11,12 +11,11 @@ export const GetPrograms = gql`
         totalCount
         edges {
           node {
-            ...BasicProgramFields
+            ...DetailProgramFields
           }
         }
       }
     }
   }
-
-  ${BasicProgramFields}
+  ${DetailProgramFields}
 `

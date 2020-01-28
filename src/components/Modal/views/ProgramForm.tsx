@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
@@ -10,7 +10,9 @@ import { MdPeople } from 'react-icons/md'
 import { FiTag, FiTarget } from 'react-icons/fi'
 import { FaRegCalendarAlt, FaImage } from 'react-icons/fa'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
+
 import { useCreateProgramMutation } from '../../../graphql/mutations/generated/CreateProgram.gql.generated'
+import { useForm } from '../../../lib/useForm'
 
 const tagOptions = [
   { value: 'warm-up', label: 'Build Muscle' },
@@ -102,22 +104,53 @@ const Save = styled(Button)`
 `
 
 export const ProgramForm: React.FC = () => {
+  const [tags, setTags] = useState([])
+  function handleTagsChange(options: any) {
+    const updatedTags = options.map(
+      (option: { value: string; label: string }) => option.label
+    )
+    setTags(updatedTags)
+  }
+
+  const [audience, setAudience] = useState('')
+  function handleAudienceChange(option: any) {
+    setAudience(option.label)
+  }
+
+  const [goals, setGoals] = useState([])
+  function handleGoalsChange(options: any) {
+    const updatedGoals = options.map(
+      (option: { value: string; label: string }) => option.label
+    )
+    setGoals(updatedGoals)
+  }
+
+  const [values, handleChange] = useForm({ name: '', description: '', days: 0 })
+
   const [createProgram] = useCreateProgramMutation()
   function handleClick() {
     createProgram({
       variables: {
-        trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
-        name: 'Crossfit for Humans',
-        description: 'Crossfit for Humans',
-        startsWhenCustomerStarts: true,
-        numberOfDays: 45,
+        input: {
+          trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
+          name: values.name,
+          description: values.description,
+          startsWhenCustomerStarts: true,
+          numberOfDays: values.days * 7,
+          tags,
+        },
       },
     })
   }
 
   return (
     <Container>
-      <NameField placeholder="Add program name" />
+      <NameField
+        placeholder="Add program name"
+        name="name"
+        value={values.name}
+        onChange={handleChange}
+      />
       <Field multi>
         <IoMdList className="field-icon" />
         <DescriptionField
@@ -131,6 +164,9 @@ export const ProgramForm: React.FC = () => {
           variant="filled"
           InputProps={{ disableUnderline: true }}
           InputLabelProps={{ shrink: true }}
+          name="description"
+          value={values.description}
+          onChange={handleChange}
         />
       </Field>
       <Field multi>
@@ -143,6 +179,9 @@ export const ProgramForm: React.FC = () => {
             shrink: true,
           }}
           variant="filled"
+          name="days"
+          value={values.days}
+          onChange={handleChange}
         />
       </Field>
       <Field>
@@ -153,6 +192,7 @@ export const ProgramForm: React.FC = () => {
           classNamePrefix="react-select"
           placeholder="Add tag(s)"
           styles={selectStyles}
+          onChange={handleTagsChange}
         />
       </Field>
       <Field>
@@ -162,6 +202,7 @@ export const ProgramForm: React.FC = () => {
           classNamePrefix="react-select"
           placeholder="Target Audience"
           styles={selectStyles}
+          onChange={handleAudienceChange}
         />
       </Field>
       <Field>
@@ -172,6 +213,7 @@ export const ProgramForm: React.FC = () => {
           classNamePrefix="react-select"
           placeholder="Add training goal(s)"
           styles={selectStyles}
+          onChange={handleGoalsChange}
         />
       </Field>
       <Field multi>

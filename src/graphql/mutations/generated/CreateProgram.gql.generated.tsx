@@ -7,11 +7,7 @@ import * as ApolloReactCommon from '@apollo/react-common'
 import * as ApolloReactHooks from '@apollo/react-hooks'
 
 export type CreateProgramMutationVariables = {
-  trainerOrganizationID: Types.Scalars['ID']
-  name: Types.Scalars['String']
-  description?: Types.Maybe<Types.Scalars['String']>
-  startsWhenCustomerStarts: Types.Scalars['Boolean']
-  numberOfDays?: Types.Maybe<Types.Scalars['Int']>
+  input: Types.CreateWorkoutProgram
 }
 
 export type CreateProgramMutation = { __typename?: 'Mutation' } & {
@@ -38,11 +34,7 @@ export type CreateProgramMutationFn = ApolloReactCommon.MutationFunction<
  * @example
  * const [createProgramMutation, { data, loading, error }] = useCreateProgramMutation({
  *   variables: {
- *      trainerOrganizationID: // value for 'trainerOrganizationID'
- *      name: // value for 'name'
- *      description: // value for 'description'
- *      startsWhenCustomerStarts: // value for 'startsWhenCustomerStarts'
- *      numberOfDays: // value for 'numberOfDays'
+ *      input: // value for 'input'
  *   },
  * });
  */
