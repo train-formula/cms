@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+
 import { DetailProgramFields } from '../fragments/DetailProgramFields.gql'
 
 export const GetDetailPrograms = gql`
