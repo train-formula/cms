@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { useGetBasicExercisesQuery } from '../graphql/queries/generated/GetBasicExercises.gql.generated'
 import { flattenEdges } from '../lib/flattenEdges'
+import { LibraryLayout } from '../components/templates/LibraryLayout'
 
 const Container = styled.div``
 
@@ -17,6 +18,18 @@ export const Exercises: React.FC = () => {
     console.log(flattenEdges(data.exerciseSearch.results.edges))
   }
   return (
-    <Container>{data && data.exerciseSearch && <h1>Exercises</h1>}</Container>
+    <Container>
+      {data && data.exerciseSearch && (
+        <LibraryLayout
+          ctaText="create an exercise"
+          filters={['title', 'tags', 'created by']}
+          type="exercise"
+          items={flattenEdges(data.exerciseSearch.results.edges)}
+          // deleteProgram
+          // copyProgram
+          // count
+        />
+      )}
+    </Container>
   )
 }

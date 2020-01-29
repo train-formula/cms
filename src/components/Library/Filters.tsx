@@ -4,9 +4,26 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Typography from '@material-ui/core/Typography'
 import { MdFilterList } from 'react-icons/md'
 
-const Container = styled.div`
+const handleLayoutType = (type: string) => {
+  switch (type) {
+    case 'program':
+      return 'auto 1fr 1fr 1fr 2fr 1fr'
+    case 'exercise':
+      return 'auto 1fr 2fr 1fr'
+    case 'category':
+      return 'auto 1fr 2fr 1fr'
+    case 'prescription':
+      return 'auto 1fr 1fr 1fr 1fr 2fr'
+    default:
+      return 'auto 1fr 1fr 1fr 2fr 1fr'
+  }
+}
+type ContainerProps = {
+  type: string
+}
+const Container = styled.div<ContainerProps>`
   display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr 2fr 1fr;
+  grid-template-columns: ${p => handleLayoutType(p.type)};
   align-items: center;
   padding: 0 1rem;
   color: #5f6368;
@@ -31,54 +48,24 @@ const FilterIcon = styled(MdFilterList)`
   }
 `
 
-type Props = {
+export type FiltersProps = {
   className?: string
+  filters: string[]
+  type: string
 }
 
-export const Filters: React.FC<Props> = () => {
+export const Filters: React.FC<FiltersProps> = ({ type, filters }) => {
   return (
-    <Container>
+    <Container type={type}>
       <CheckboxPlaceholder />
-      <div>
-        <Filter>
+      {filters.map(filter => (
+        <Filter key={filter}>
           <Typography className="title" variant="caption">
-            title
+            {filter}
           </Typography>
           <FilterIcon />
         </Filter>
-      </div>
-      <div>
-        <Filter>
-          <Typography className="title" variant="caption">
-            difficulty
-          </Typography>
-          <FilterIcon />
-        </Filter>
-      </div>
-      <div>
-        <Filter>
-          <Typography className="title" variant="caption">
-            commitment
-          </Typography>
-          <FilterIcon />
-        </Filter>
-      </div>
-      <div>
-        <Filter>
-          <Typography className="title" variant="caption">
-            goals
-          </Typography>
-          <FilterIcon />
-        </Filter>
-      </div>
-      <div>
-        <Filter>
-          <Typography className="title" variant="caption">
-            created by
-          </Typography>
-          <FilterIcon />
-        </Filter>
-      </div>
+      ))}
     </Container>
   )
 }

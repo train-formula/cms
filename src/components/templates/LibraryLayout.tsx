@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import Divider from '@material-ui/core/Divider'
 
-import { Header } from '../Library/Header'
+import { Header, HeaderProps } from '../Library/Header'
 import { Actions } from '../Library/Actions'
-import { Filters } from '../Library/Filters'
-import { List } from '../Library/List'
+import { Filters, FiltersProps } from '../Library/Filters'
+import { List, ListProps } from '../Library/List'
 
 const Container = styled.div`
   display: flex;
@@ -21,16 +21,23 @@ type Props = {
   items: { [key: string]: any }[]
 }
 
-export const LibraryLayout: React.FC<Props> = ({ items }) => {
+type LibraryLayoutProps = Props & HeaderProps & FiltersProps & ListProps
+
+export const LibraryLayout: React.FC<LibraryLayoutProps> = ({
+  items,
+  ctaText,
+  filters,
+  type,
+}) => {
   return (
     <Container>
-      <Header />
+      <Header ctaText={ctaText} />
       <Divider />
       <Actions />
       <Divider />
-      <Filters />
+      <Filters filters={filters} type={type} />
       <Divider />
-      <List className="scroll" items={items} />
+      <List items={items} type={type} />
     </Container>
   )
 }

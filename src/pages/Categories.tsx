@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { useGetBasicCategoriesQuery } from '../graphql/queries/generated/GetBasicCategories.gql.generated'
 import { flattenEdges } from '../lib/flattenEdges'
+import { LibraryLayout } from '../components/templates/LibraryLayout'
 
 const Container = styled.div``
 
@@ -20,7 +21,17 @@ export const Categories: React.FC = () => {
 
   return (
     <Container>
-      <h1>Categories</h1>
+      {data && data.workoutCategorySearch && (
+        <LibraryLayout
+          ctaText="create a category"
+          filters={['title', 'tags', 'created by']}
+          type="category"
+          items={flattenEdges(data.workoutCategorySearch.results.edges)}
+          // deleteProgram
+          // copyProgram
+          // count
+        />
+      )}
     </Container>
   )
 }

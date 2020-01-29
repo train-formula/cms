@@ -2,23 +2,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Checkbox from '@material-ui/core/Checkbox'
 import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import { Paper } from '@material-ui/core'
 import { MdContentCopy, MdDelete, MdSettings } from 'react-icons/md'
-import { Link } from 'react-router-dom'
 
-const Container = styled.div`
-  display: grid;
-  .link {
-    text-decoration: none;
-  }
-`
 const RowLayout = styled(Paper)`
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr 2fr 1fr;
+  grid-template-columns: auto 1fr 2fr 1fr;
   align-items: center;
   color: #5f6368;
   padding: 0.5rem 1rem;
@@ -35,6 +27,7 @@ const RowLayout = styled(Paper)`
     }
   }
 `
+
 const StyledCheckbox = styled(Checkbox)`
   opacity: 0.25;
   ${RowLayout}:hover & {
@@ -75,14 +68,15 @@ const Actions: React.FC<ActionProps> = () => {
   )
 }
 
-type ProgramProps = {
+type CategoryProps = {
   item: { [key: string]: any }
 }
-const Program: React.FC<ProgramProps> = ({ item }) => {
+export const Category: React.FC<CategoryProps> = ({ item }) => {
   const [elevation, setElevation] = useState(0)
   function handleMouseEnter() {
     setElevation(elevation ? 0 : 3)
   }
+
   return (
     <RowLayout
       square={true}
@@ -94,33 +88,11 @@ const Program: React.FC<ProgramProps> = ({ item }) => {
       <Typography variant="body1" className="title">
         {item.name}
       </Typography>
-      <Typography variant="body1">beginner</Typography>
-      <Typography variant="body1">8 weeks</Typography>
-      <Typography variant="body1">chest, strength, lower body</Typography>
+      <Typography variant="body1">category, category, category</Typography>
       <Typography className="author" variant="body1">
         Alexander Saldivar
       </Typography>
       <Actions />
     </RowLayout>
-  )
-}
-
-type Props = {
-  className?: string
-  items: { [key: string]: any }[]
-}
-
-export const List: React.FC<Props> = ({ items }) => {
-  return (
-    <Container>
-      {items.map(item => (
-        <div key={item.id}>
-          <Link to={`/program/${item.id}`} className="link">
-            <Program item={item} />
-          </Link>
-          <Divider />
-        </div>
-      ))}
-    </Container>
   )
 }

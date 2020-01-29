@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { useGetBasicPrescriptionsQuery } from '../graphql/queries/generated/GetBasicPrescriptions.gql.generated'
 import { flattenEdges } from '../lib/flattenEdges'
+import { LibraryLayout } from '../components/templates/LibraryLayout'
 
 const Container = styled.div``
 
@@ -18,5 +19,25 @@ export const Prescriptions: React.FC = () => {
     console.log(flattenEdges(data.prescriptionSearch.results.edges))
   }
 
-  return <Container>Prescriptions</Container>
+  return (
+    <Container>
+      {data && data.prescriptionSearch && (
+        <LibraryLayout
+          ctaText="create a prescription"
+          filters={[
+            'title',
+            'sets',
+            'parameter one',
+            'parameter two',
+            'categories',
+          ]}
+          type="prescription"
+          items={flattenEdges(data.prescriptionSearch.results.edges)}
+          // deleteProgram
+          // copyProgram
+          // count
+        />
+      )}
+    </Container>
+  )
 }

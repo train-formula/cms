@@ -32,11 +32,11 @@ Container.defaultProps = {
   },
 }
 
-type Props = {
-  className?: string
+export type HeaderProps = {
+  ctaText: string
 }
 
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC<HeaderProps> = ({ ctaText }) => {
   const { openModal } = useModal()
 
   return (
@@ -49,7 +49,7 @@ export const Header: React.FC<Props> = () => {
         onClick={() => openModal({ type: 'programForm' })}
       >
         <IoMdAdd className="add-icon" />
-        Create a program
+        {ctaText}
       </Fab>
       <div className="center">
         <Search />
