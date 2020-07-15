@@ -18,7 +18,7 @@ const client = new ApolloClient({
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
     new HttpLink({
-      uri: 'https://graphcms.formula.haus/query',
+      uri: 'http://localhost:8080/query',
       credentials: 'include',
     }),
   ]),

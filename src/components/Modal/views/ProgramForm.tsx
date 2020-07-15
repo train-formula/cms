@@ -1,18 +1,21 @@
-import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
-import Select from 'react-select'
-import CreatableSelect from 'react-select/creatable'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import { IoMdList } from 'react-icons/io'
-import { MdPeople } from 'react-icons/md'
-import { FiTag, FiTarget } from 'react-icons/fi'
-import { FaRegCalendarAlt, FaImage } from 'react-icons/fa'
-import { AiOutlineCloudUpload } from 'react-icons/ai'
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import CreatableSelect from 'react-select/creatable';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { IoMdList } from 'react-icons/io';
+import { MdPeople } from 'react-icons/md';
+import { FiTag, FiTarget } from 'react-icons/fi';
+import { FaRegCalendarAlt, FaImage } from 'react-icons/fa';
+import { AiOutlineCloudUpload } from 'react-icons/ai';
 
-import { useCreateProgramMutation } from '../../../graphql/mutations/generated/CreateProgram.gql.generated'
-import { useForm } from '../../../lib/useForm'
+import { useCreateProgramMutation } from '../../../graphql/mutations/generated/CreateProgram.gql.generated';
+import { ProgramLevelSelect } from '../../atomic/Atoms/ProgramLevelSelect';
+import { ProgramLevel } from '../../../graphql/schema/generated/types';
+import { DescriptionField } from '../../atomic/Atoms/DescriptionField';
+import { TagSelect } from '../../atomic/Molecules/TagSelect';
+import { BasicTagFieldsFragment } from '../../../graphql/fragments/generated/BasicTagFields.gql.generated';
 
 const tagOptions = [
   { value: 'warm-up', label: 'Build Muscle' },
@@ -21,12 +24,7 @@ const tagOptions = [
   { value: 'strength-power', label: 'Booty Gains' },
   { value: 'conditioning', label: 'Increase Power' },
   { value: 'recovery', label: 'Improve Mobility' },
-]
-const audienceOptions = [
-  { value: 'beginner', label: 'beginner' },
-  { value: 'intermediate', label: 'intermediate' },
-  { value: 'advanced', label: 'advanced' },
-]
+];
 
 const selectStyles = {
   control: (styles: {}) => {
@@ -39,9 +37,9 @@ const selectStyles = {
       '.react-select__single-value': {
         lineHeight: '1.2',
       },
-    }
+    };
   },
-}
+};
 
 const Container = styled.div`
   display: grid;
@@ -49,39 +47,26 @@ const Container = styled.div`
   justify-content: center;
   grid-gap: 2rem;
   padding: 5rem;
-`
+`;
 const NameField = styled(TextField)`
   .MuiInputBase-root {
     font-size: 4rem;
   }
-`
-const DescriptionField = styled(TextField)`
-  width: 100%;
-  margin: 0;
-  .MuiInputBase-root {
-    border-radius: 4px;
-  }
-  .MuiInputLabel-filled {
-    z-index: 0;
-  }
-  .Mui-focused {
-    color: #0000008a;
-  }
-`
+`;
+
 type FieldProps = {
-  multi?: boolean
-}
+  multi?: boolean;
+};
 const Field = styled.div<FieldProps>`
   position: relative;
   .field-icon {
     position: absolute;
-    transform: ${p =>
-      p.multi ? 'translate(-3.5rem, 1rem)' : 'translate(-3.5rem, 0.5rem)'};
+    transform: ${p => (p.multi ? 'translate(-3.5rem, 1rem)' : 'translate(-3.5rem, 0.5rem)')};
     height: 2.5rem;
     width: 2.5rem;
     color: #5f6368;
   }
-`
+`;
 const ImageUploadContainer = styled.div`
   width: 100%;
   height: 12rem;
@@ -97,50 +82,58 @@ const ImageUploadContainer = styled.div`
     height: 2rem;
     width: 2rem;
   }
-`
+`;
 const Save = styled(Button)`
   width: 80%;
   margin: 2rem auto;
-`
+`;
+
+type ProgramFormValues = {
+  name: string;
+  description: string;
+  weeks?: number;
+  programLevel: ProgramLevel;
+  tags: BasicTagFieldsFragment[];
+};
+
+const defaultProgramFormValues: ProgramFormValues = {
+  name: '',
+  description: '',
+  weeks: 0,
+  programLevel: 'BEGINNER',
+  tags: [],
+};
 
 export const ProgramForm: React.FC = () => {
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState([]);
   function handleTagsChange(options: any) {
-    const updatedTags = options.map(
-      (option: { value: string; label: string }) => option.label
-    )
-    setTags(updatedTags)
+    const updatedTags = options.map((option: { value: string; label: string }) => option.label);
+    setTags(updatedTags);
   }
 
-  const [audience, setAudience] = useState('')
-  function handleAudienceChange(option: any) {
-    setAudience(option.label)
-  }
-
-  const [goals, setGoals] = useState([])
+  const [goals, setGoals] = useState([]);
   function handleGoalsChange(options: any) {
-    const updatedGoals = options.map(
-      (option: { value: string; label: string }) => option.label
-    )
-    setGoals(updatedGoals)
+    const updatedGoals = options.map((option: { value: string; label: string }) => option.label);
+    setGoals(updatedGoals);
   }
 
-  const [values, handleChange] = useForm({ name: '', description: '', days: 0 })
+  const [values, handleChange] = useState<ProgramFormValues>(defaultProgramFormValues);
 
-  const [createProgram] = useCreateProgramMutation()
+  const [createProgram] = useCreateProgramMutation();
   function handleClick() {
     createProgram({
       variables: {
         input: {
-          trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
+          trainerOrganizationID: '110c3d5e-49fb-4b5b-b719-c3fcd57b3050',
           name: values.name,
           description: values.description,
           startsWhenCustomerStarts: true,
-          numberOfDays: values.days * 7,
+          numberOfDays: values.weeks ? values.weeks * 7 : 0,
+          programLevel: values.programLevel,
           tags,
         },
       },
-    })
+    });
   }
 
   return (
@@ -149,7 +142,15 @@ export const ProgramForm: React.FC = () => {
         placeholder="Add program name"
         name="name"
         value={values.name}
-        onChange={handleChange}
+        onChange={e => {
+          const value = e.target.value;
+          handleChange(prev => {
+            return {
+              ...prev,
+              name: value,
+            };
+          });
+        }}
       />
       <Field multi>
         <IoMdList className="field-icon" />
@@ -166,7 +167,15 @@ export const ProgramForm: React.FC = () => {
           InputLabelProps={{ shrink: true }}
           name="description"
           value={values.description}
-          onChange={handleChange}
+          onChange={e => {
+            const value = e.target.value;
+            handleChange(prev => {
+              return {
+                ...prev,
+                description: value,
+              };
+            });
+          }}
         />
       </Field>
       <Field multi>
@@ -180,29 +189,44 @@ export const ProgramForm: React.FC = () => {
           }}
           variant="filled"
           name="days"
-          value={values.days}
-          onChange={handleChange}
+          value={values.weeks !== undefined ? values.weeks : ''}
+          onChange={e => {
+            const value = parseInt(e.target.value);
+            handleChange(prev => {
+              return {
+                ...prev,
+                weeks: isNaN(value) || !isFinite(value) ? undefined : value,
+              };
+            });
+          }}
         />
       </Field>
       <Field>
         <FiTag className="field-icon" />
-        <CreatableSelect
-          isMulti
-          options={tagOptions}
-          classNamePrefix="react-select"
-          placeholder="Add tag(s)"
-          styles={selectStyles}
-          onChange={handleTagsChange}
+        <TagSelect
+          trainerOrganizationID={'110c3d5e-49fb-4b5b-b719-c3fcd57b3050'}
+          value={values.tags}
+          onChange={tags => {
+            handleChange(prev => {
+              return {
+                ...prev,
+                tags,
+              };
+            });
+          }}
         />
       </Field>
       <Field>
         <MdPeople className="field-icon" />
-        <Select
-          options={audienceOptions}
-          classNamePrefix="react-select"
-          placeholder="Target Audience"
-          styles={selectStyles}
-          onChange={handleAudienceChange}
+        <ProgramLevelSelect
+          onChange={val => {
+            handleChange(prev => {
+              return {
+                ...prev,
+                programLevel: val,
+              };
+            });
+          }}
         />
       </Field>
       <Field>
@@ -232,5 +256,5 @@ export const ProgramForm: React.FC = () => {
         create program
       </Save>
     </Container>
-  )
-}
+  );
+};

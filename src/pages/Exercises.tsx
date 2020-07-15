@@ -22,6 +22,7 @@ export const Exercises: React.FC = () => {
       {data && data.exerciseSearch && (
         <LibraryLayout
           ctaText="create an exercise"
+          ctaOnClick={() => console.log("void")}
           filters={['title', 'tags', 'created by']}
           type="exercise"
           items={flattenEdges(data.exerciseSearch.results.edges)}

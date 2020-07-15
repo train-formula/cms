@@ -5,7 +5,7 @@ type FormArgs = {
 }
 
 export const useForm = (initialValues: any) => {
-  const [values, setValues] = useState(initialValues)
+  const [values, setValues] = useState<FormArgs>(initialValues)
 
   return [
     values,

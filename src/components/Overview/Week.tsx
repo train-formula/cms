@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Divider from '@material-ui/core/Divider'
-import { MdEdit, MdContentCopy, MdRepeat, MdDelete } from 'react-icons/md'
+import {MdContentCopy, MdDelete, MdEdit, MdRepeat} from 'react-icons/md'
 
-import { Workout } from './Workout'
-import { useModal } from '../Modal/context'
-import { useDialog } from '../Dialog/context'
-import { useSnackbar } from '../Snackbar/context'
+import {Workout} from './Workout'
+import {useModal} from '../Modal/context'
+import {useDialog} from '../Dialog/context'
+import {useSnackbar} from '../Snackbar/context'
+import {AvailableModals} from "../Modal/reducer";
 
 const Container = styled.div`
   padding: 0 1rem;
@@ -105,7 +106,7 @@ export const Week: React.FC<Props> = ({ selectedWeek }) => {
 
   const onEditClick = () => {
     setAnchorEl(null)
-    openModal({ type: 'workoutForm' })
+    openModal({ type: AvailableModals.CREATE_WORKOUT })
   }
   const onCopyClick = () => {
     setAnchorEl(null)

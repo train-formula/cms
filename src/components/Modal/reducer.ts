@@ -1,30 +1,39 @@
-import React from 'react'
+import React from "react";
 
 export enum ActionTypes {
   OPEN_MODAL,
-  CLOSE_MODAL,
+  CLOSE_MODAL
+}
+
+export enum AvailableModals {
+  CREATE_PROGRAM,
+  CREATE_EXERCISE,
+  CREATE_PRESCRIPTION,
+  CREATE_WORKOUT
+}
+
+export interface ModalPayload {
+  type?: AvailableModals;
+  values?: any;
 }
 
 export interface Modal {
-  isOpen: boolean
-  data: {
-    type: string | undefined
-    values: any | undefined
-  }
+  isOpen: boolean;
+  data: ModalPayload;
 }
 
 export interface Action {
-  type: ActionTypes
-  payload?: any // update this once you know form values
+  type: ActionTypes;
+  payload: ModalPayload; // update this once you know form values
 }
 
 export const initialState = {
   isOpen: false,
   data: {
     type: undefined,
-    values: undefined,
-  },
-}
+    values: undefined
+  }
+};
 
 export const reducer: React.Reducer<Modal, Action> = (
   state = initialState,
@@ -34,18 +43,18 @@ export const reducer: React.Reducer<Modal, Action> = (
     case ActionTypes.OPEN_MODAL:
       return {
         isOpen: true,
-        data: action.payload,
-      }
+        data: action.payload
+      };
     case ActionTypes.CLOSE_MODAL:
       return {
         isOpen: false,
         data: {
           type: undefined,
-          values: undefined,
-        },
-      }
+          values: undefined
+        }
+      };
     default: {
-      throw new Error(`Unsupported action type: ${action.type}`)
+      throw new Error(`Unsupported action type: ${action.type}`);
     }
   }
-}
+};

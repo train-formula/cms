@@ -1,22 +1,22 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import { useGetBasicCategoriesQuery } from '../graphql/queries/generated/GetBasicCategories.gql.generated'
-import { flattenEdges } from '../lib/flattenEdges'
-import { LibraryLayout } from '../components/templates/LibraryLayout'
+import { useGetBasicCategoriesQuery } from "../graphql/queries/generated/GetBasicCategories.gql.generated";
+import { flattenEdges } from "../lib/flattenEdges";
+import { LibraryLayout } from "../components/templates/LibraryLayout";
 
-const Container = styled.div``
+const Container = styled.div``;
 
 export const Categories: React.FC = () => {
   const { data } = useGetBasicCategoriesQuery({
     variables: {
-      trainerOrganizationID: 'd498fa20-4614-4039-97c6-e14ddc81f04f',
-      first: 10,
-    },
-  })
+      trainerOrganizationID: "d498fa20-4614-4039-97c6-e14ddc81f04f",
+      first: 10
+    }
+  });
 
   if (data && data.workoutCategorySearch) {
-    console.log(flattenEdges(data.workoutCategorySearch.results.edges))
+    console.log(flattenEdges(data.workoutCategorySearch.results.edges));
   }
 
   return (
@@ -24,7 +24,8 @@ export const Categories: React.FC = () => {
       {data && data.workoutCategorySearch && (
         <LibraryLayout
           ctaText="create a category"
-          filters={['title', 'tags', 'created by']}
+          ctaOnClick={() => console.log("void")}
+          filters={["title", "tags", "created by"]}
           type="category"
           items={flattenEdges(data.workoutCategorySearch.results.edges)}
           // deleteProgram
@@ -33,5 +34,5 @@ export const Categories: React.FC = () => {
         />
       )}
     </Container>
-  )
-}
+  );
+};

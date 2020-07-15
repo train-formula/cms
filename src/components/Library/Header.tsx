@@ -33,12 +33,11 @@ Container.defaultProps = {
 }
 
 export type HeaderProps = {
-  ctaText: string
+  ctaText: string;
+  ctaOnClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ ctaText }) => {
-  const { openModal } = useModal()
-
+export const Header: React.FC<HeaderProps> = ({ ctaText, ctaOnClick }) => {
   return (
     <Container>
       <Fab
@@ -46,7 +45,7 @@ export const Header: React.FC<HeaderProps> = ({ ctaText }) => {
         className="zIndex1"
         variant="extended"
         aria-label="create a program"
-        onClick={() => openModal({ type: 'programForm' })}
+        onClick={ctaOnClick}
       >
         <IoMdAdd className="add-icon" />
         {ctaText}
