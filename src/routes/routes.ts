@@ -1,14 +1,13 @@
 import React from 'react'
 import { GiFiles } from 'react-icons/gi'
 import { MdDns } from 'react-icons/md'
-import { FaDumbbell, FaPrescription } from 'react-icons/fa'
+import { FaDumbbell } from 'react-icons/fa'
 
 import { Programs } from '../pages/Programs'
 import { Exercises } from '../pages/Exercises'
 import { Exercise } from '../pages/Exercise'
 import { Categories } from '../pages/Categories'
 import { Category } from '../pages/Category'
-import { Prescriptions } from '../pages/Prescriptions'
 import { Workout } from '../pages/Workout'
 import { Program } from '../pages/Program'
 
@@ -26,7 +25,7 @@ export type Route = {
 
 export const routes: Route[] = [
   {
-    path: '/',
+    path: '/programs',
     component: Programs,
     name: 'Programs',
     icon: GiFiles,
@@ -43,12 +42,6 @@ export const routes: Route[] = [
     component: Categories,
     name: 'Categories',
     icon: MdDns,
-  },
-  {
-    path: '/prescriptions',
-    component: Prescriptions,
-    name: 'Prescriptions',
-    icon: FaPrescription,
   },
 ]
 
