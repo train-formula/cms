@@ -25,12 +25,14 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
 `;
+
 const Content = styled.div`
   height: 100%;
   display: grid;
   margin-top: 2rem;
   grid-template-columns: min-content 1fr;
 `;
+
 const Header = styled.div`
   display: grid;
   grid-template-columns: auto 1fr 1fr;

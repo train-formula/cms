@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://graphcms.formula.haus/query'
+schema: 'http://localhost:8080/query'
 documents: './src/graphql/**/*.gql.ts'
 generates:
   src/graphql/schema/generated/types.ts:

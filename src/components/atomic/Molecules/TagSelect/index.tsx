@@ -4,6 +4,7 @@ import { useGetOrganizationTagsQuery } from '../../../../graphql/queries/generat
 import { flattenEdges } from '../../../../lib/flattenEdges';
 import { BasicTagFieldsFragment } from '../../../../graphql/fragments/generated/BasicTagFields.gql.generated';
 import { OptionsType } from 'react-select';
+import { useEffect, useMemo, useState } from 'react';
 
 const selectStyles = {
   control: (styles: {}) => {
@@ -35,16 +36,31 @@ const optToTag = (opt: { label: string; value: string }): BasicTagFieldsFragment
 
 export interface TagSelectProps {
   trainerOrganizationID: string;
-  value?: BasicTagFieldsFragment[];
-  onChange?: (values: BasicTagFieldsFragment[]) => void;
+  value?: string[];
+  onChange?: (values: string[]) => void;
 }
 
+type tagMap = { [tagID: string]: BasicTagFieldsFragment };
+
 export const TagSelect: React.FunctionComponent<TagSelectProps> = ({ trainerOrganizationID, value, onChange }) => {
+  const [tagMap, setTagMap] = useState<tagMap>({});
+
   const { data, loading, error } = useGetOrganizationTagsQuery({
     variables: {
       trainerOrganizationID,
     },
   });
+
+  useEffect(() => {
+    const map: tagMap = {};
+    if (data && data.organizationAvailableTags) {
+      flattenEdges(data.organizationAvailableTags.edges).forEach((val) => {
+        map[val.id] = val;
+      });
+    }
+
+    setTagMap(map);
+  }, [data]);
 
   if (error) {
     console.error(error);
@@ -54,17 +70,20 @@ export const TagSelect: React.FunctionComponent<TagSelectProps> = ({ trainerOrga
   return (
     <CreatableSelect
       isMulti
-      options={
-        data && data.organizationAvailableTags ? flattenEdges(data.organizationAvailableTags.edges).map(tagToOpt) : []
-      }
+      options={Object.values(tagMap).map(tagToOpt)}
       clasxsNamePrefix="react-select"
       placeholder="Add tag(s)"
       styles={selectStyles}
-      value={value && value.map(tagToOpt)}
-      onChange={val => {
+      value={
+        value &&
+        value.map((val) => {
+          return tagToOpt(tagMap[val]);
+        })
+      }
+      onChange={(val) => {
         if (onChange && val) {
           const conv = val as OptionsType<{ label: string; value: string }>;
-          onChange(conv.map(optToTag));
+          onChange(conv.map((tg) => tg.value));
         }
       }}
     />

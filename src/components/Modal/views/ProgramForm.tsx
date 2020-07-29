@@ -2,13 +2,10 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CreatableSelect from 'react-select/creatable';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { IoMdList } from 'react-icons/io';
 import { MdPeople } from 'react-icons/md';
 import { FiTag, FiTarget } from 'react-icons/fi';
 import { FaRegCalendarAlt, FaImage } from 'react-icons/fa';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 import { useCreateProgramMutation } from '../../../graphql/mutations/generated/CreateProgram.gql.generated';
 import { ProgramLevelSelect } from '../../atomic/Atoms/ProgramLevelSelect';
@@ -16,6 +13,9 @@ import { ProgramLevel } from '../../../graphql/schema/generated/types';
 import { DescriptionField } from '../../atomic/Atoms/DescriptionField';
 import { TagSelect } from '../../atomic/Molecules/TagSelect';
 import { BasicTagFieldsFragment } from '../../../graphql/fragments/generated/BasicTagFields.gql.generated';
+import { ModalContainer } from '../../atomic/Atoms/ModalContainer';
+import { ModalSaveButton } from '../../atomic/Atoms/ModalSaveButton';
+import { ImageUploader } from '../../atomic/Molecules/ImageUploader';
 
 const tagOptions = [
   { value: 'warm-up', label: 'Build Muscle' },
@@ -41,13 +41,6 @@ const selectStyles = {
   },
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-auto-columns: max-content;
-  justify-content: center;
-  grid-gap: 2rem;
-  padding: 5rem;
-`;
 const NameField = styled(TextField)`
   .MuiInputBase-root {
     font-size: 4rem;
@@ -61,31 +54,11 @@ const Field = styled.div<FieldProps>`
   position: relative;
   .field-icon {
     position: absolute;
-    transform: ${p => (p.multi ? 'translate(-3.5rem, 1rem)' : 'translate(-3.5rem, 0.5rem)')};
+    transform: ${(p) => (p.multi ? 'translate(-3.5rem, 1rem)' : 'translate(-3.5rem, 0.5rem)')};
     height: 2.5rem;
     width: 2.5rem;
     color: #5f6368;
   }
-`;
-const ImageUploadContainer = styled.div`
-  width: 100%;
-  height: 12rem;
-  display: grid;
-  margin-left: 0.2rem;
-  margin-top: 0.5rem;
-  align-items: center;
-  text-align: center
-  background: #f0f2f2;
-  color: #909090;
-  cursor: pointer;
-  svg {
-    height: 2rem;
-    width: 2rem;
-  }
-`;
-const Save = styled(Button)`
-  width: 80%;
-  margin: 2rem auto;
 `;
 
 type ProgramFormValues = {
@@ -93,7 +66,7 @@ type ProgramFormValues = {
   description: string;
   weeks?: number;
   programLevel: ProgramLevel;
-  tags: BasicTagFieldsFragment[];
+  tags: string[];
 };
 
 const defaultProgramFormValues: ProgramFormValues = {
@@ -105,12 +78,6 @@ const defaultProgramFormValues: ProgramFormValues = {
 };
 
 export const ProgramForm: React.FC = () => {
-  const [tags, setTags] = useState([]);
-  function handleTagsChange(options: any) {
-    const updatedTags = options.map((option: { value: string; label: string }) => option.label);
-    setTags(updatedTags);
-  }
-
   const [goals, setGoals] = useState([]);
   function handleGoalsChange(options: any) {
     const updatedGoals = options.map((option: { value: string; label: string }) => option.label);
@@ -120,7 +87,7 @@ export const ProgramForm: React.FC = () => {
   const [values, handleChange] = useState<ProgramFormValues>(defaultProgramFormValues);
 
   const [createProgram] = useCreateProgramMutation();
-  function handleClick() {
+  function handleSave() {
     createProgram({
       variables: {
         input: {
@@ -130,21 +97,21 @@ export const ProgramForm: React.FC = () => {
           startsWhenCustomerStarts: true,
           numberOfDays: values.weeks ? values.weeks * 7 : 0,
           programLevel: values.programLevel,
-          tags,
+          tags: values.tags,
         },
       },
     });
   }
 
   return (
-    <Container>
+    <ModalContainer>
       <NameField
         placeholder="Add program name"
         name="name"
         value={values.name}
-        onChange={e => {
+        onChange={(e) => {
           const value = e.target.value;
-          handleChange(prev => {
+          handleChange((prev) => {
             return {
               ...prev,
               name: value,
@@ -167,9 +134,9 @@ export const ProgramForm: React.FC = () => {
           InputLabelProps={{ shrink: true }}
           name="description"
           value={values.description}
-          onChange={e => {
+          onChange={(e) => {
             const value = e.target.value;
-            handleChange(prev => {
+            handleChange((prev) => {
               return {
                 ...prev,
                 description: value,
@@ -190,9 +157,9 @@ export const ProgramForm: React.FC = () => {
           variant="filled"
           name="days"
           value={values.weeks !== undefined ? values.weeks : ''}
-          onChange={e => {
+          onChange={(e) => {
             const value = parseInt(e.target.value);
-            handleChange(prev => {
+            handleChange((prev) => {
               return {
                 ...prev,
                 weeks: isNaN(value) || !isFinite(value) ? undefined : value,
@@ -206,8 +173,8 @@ export const ProgramForm: React.FC = () => {
         <TagSelect
           trainerOrganizationID={'110c3d5e-49fb-4b5b-b719-c3fcd57b3050'}
           value={values.tags}
-          onChange={tags => {
-            handleChange(prev => {
+          onChange={(tags) => {
+            handleChange((prev) => {
               return {
                 ...prev,
                 tags,
@@ -219,8 +186,8 @@ export const ProgramForm: React.FC = () => {
       <Field>
         <MdPeople className="field-icon" />
         <ProgramLevelSelect
-          onChange={val => {
-            handleChange(prev => {
+          onChange={(val) => {
+            handleChange((prev) => {
               return {
                 ...prev,
                 programLevel: val,
@@ -241,20 +208,10 @@ export const ProgramForm: React.FC = () => {
         />
       </Field>
       <Field multi>
-        {/* TODO photo upload functionality */}
         <FaImage className="field-icon" />
-        <ImageUploadContainer>
-          <Typography variant="caption">
-            <div>
-              <AiOutlineCloudUpload />
-            </div>
-            Cover Image
-          </Typography>
-        </ImageUploadContainer>
+        <ImageUploader />
       </Field>
-      <Save variant="contained" color="primary" onClick={handleClick}>
-        create program
-      </Save>
-    </Container>
+      <ModalSaveButton onClick={handleSave}>create program</ModalSaveButton>
+    </ModalContainer>
   );
 };

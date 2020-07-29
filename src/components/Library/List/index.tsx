@@ -33,7 +33,11 @@ export const List: React.FC<ListProps> = ({ type, items }) => {
           </Link>
         )
       case 'exercise':
-        return <Exercise item={item} />
+        return (
+          <Link to={`/exercise/${item.id}`} className="link">
+            <Exercise item={item} />
+          </Link>
+        );
       case 'category':
         return <Category item={item} />
       case 'prescription':

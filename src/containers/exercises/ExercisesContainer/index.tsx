@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useGetBasicExercisesQuery } from '../../../graphql/queries/generated/GetBasicExercises.gql.generated';
 import { flattenEdges } from '../../../lib/flattenEdges';
 import { LibraryLayout } from '../../../components/templates/LibraryLayout';
+import { AvailableModals } from '../../../components/Modal/reducer';
+import { useModal } from '../../../components/Modal/context';
 
 const Container = styled.div``;
 
@@ -12,6 +14,8 @@ export interface ExercisesContainerProps {
 }
 
 export const ExercisesContainer: React.FC<ExercisesContainerProps> = ({ trainerOrganizationID }) => {
+  const { openModal } = useModal();
+
   const { data } = useGetBasicExercisesQuery({
     variables: {
       trainerOrganizationID: trainerOrganizationID,
@@ -26,7 +30,7 @@ export const ExercisesContainer: React.FC<ExercisesContainerProps> = ({ trainerO
       {data && data.exerciseSearch && (
         <LibraryLayout
           ctaText="create an exercise"
-          ctaOnClick={() => console.log('void')}
+          ctaOnClick={() => openModal({ type: AvailableModals.CREATE_EXERCISE })}
           filters={['title', 'tags', 'created by']}
           type="exercise"
           items={flattenEdges(data.exerciseSearch.results.edges)}

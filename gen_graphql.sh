@@ -9,12 +9,14 @@ cd "$(dirname "$0")"
 QUERIES_GENERATED_FOLDER=./src/graphql/queries/generated
 MUTATIONS_GENERATED_FOLDER=./src/graphql/mutations/generated
 FRAGMENTS_GENERATED_FOLDER=./src/graphql/fragments/generated
+SCHEMA_GENERATED_FOLDER=./src/graphql/schema/generated
 
 # Wipe existing generated folders.
 # Necessary as graphql-codegen does not do this properly even with the overwrite flag
 rm -rf $QUERIES_GENERATED_FOLDER
 rm -rf $MUTATIONS_GENERATED_FOLDER
 rm -rf $FRAGMENTS_GENERATED_FOLDER
+rm -rf $SCHEMA_GENERATED_FOLDER
 
 # Generate files
 graphql-codegen --config codegen.yml

@@ -1,4 +1,5 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+import { BasicTagFields } from './BasicTagFields.gql';
 
 export const BasicExerciseFields = gql`
   fragment BasicExerciseFields on Exercise {
@@ -9,5 +10,11 @@ export const BasicExerciseFields = gql`
     name
     description
     videoURL
+
+    tags {
+      ...BasicTagFields
+    }
   }
-`
+
+  ${BasicTagFields}
+`;

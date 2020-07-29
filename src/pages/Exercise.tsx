@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const Container = styled.div``
+import React from 'react';
+import { useParams } from 'react-router';
+import { ExerciseContainer } from '../containers/exercises/ExerciseContainer';
 
 export const Exercise: React.FC = () => {
-  return (
-    <Container>
-      <h1>Exercise</h1>
-    </Container>
-  )
-}
+  const { id } = useParams();
+
+  if (!id) {
+    return null;
+  }
+  return <ExerciseContainer exerciseId={id} />;
+};

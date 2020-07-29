@@ -135,17 +135,14 @@ export type DiurnalIntervalInput = {
   count: Scalars['Int'];
 };
 
-export type DiurnalIntervalInterval = 
-  | 'DAY'
-  | 'WEEK'
-  | 'MONTH'
-  | 'YEAR';
+export type DiurnalIntervalInterval = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
 export type EditExercise = {
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   videoURL?: Maybe<NullableStringEditor>;
+  tags?: Maybe<NullableIdListEditor>;
 };
 
 export type EditPlan = {
@@ -267,136 +264,109 @@ export type Mutation = {
   createWorkoutProgram?: Maybe<WorkoutProgram>;
 };
 
-
 export type MutationCreateExerciseArgs = {
   request: CreateExercise;
 };
-
 
 export type MutationEditExerciseArgs = {
   request: EditExercise;
 };
 
-
 export type MutationDeleteExerciseArgs = {
   request: Scalars['ID'];
 };
-
 
 export type MutationCreatePlanArgs = {
   request: CreatePlan;
 };
 
-
 export type MutationEditPlanArgs = {
   request: EditPlan;
 };
-
 
 export type MutationArchivePlanArgs = {
   request: Scalars['ID'];
 };
 
-
 export type MutationCreatePlanScheduleArgs = {
   request: CreatePlanSchedule;
 };
-
 
 export type MutationEditPlanScheduleArgs = {
   request: EditPlanSchedule;
 };
 
-
 export type MutationArchivePlanScheduleArgs = {
   request: Scalars['ID'];
 };
-
 
 export type MutationCreatePrescriptionArgs = {
   request: CreatePrescription;
 };
 
-
 export type MutationEditPrescriptionArgs = {
   request: EditPrescription;
 };
-
 
 export type MutationDeletePrescriptionArgs = {
   request: Scalars['ID'];
 };
 
-
 export type MutationCreatePrescriptionSetArgs = {
   request: CreatePrescriptionSet;
 };
-
 
 export type MutationEditPrescriptionSetArgs = {
   request: EditPrescriptionSet;
 };
 
-
 export type MutationDeletePrescriptionSetArgs = {
   request: Scalars['ID'];
 };
-
 
 export type MutationCreateTagArgs = {
   request: CreateTag;
 };
 
-
 export type MutationCreateWorkoutArgs = {
   request: CreateWorkout;
 };
-
 
 export type MutationEditWorkoutArgs = {
   request: EditWorkout;
 };
 
-
 export type MutationDeleteWorkoutArgs = {
   request: Scalars['ID'];
 };
-
 
 export type MutationSetWorkoutWorkoutCategoriesArgs = {
   request: SetWorkoutWorkoutCategories;
 };
 
-
 export type MutationCreateWorkoutBlockArgs = {
   request: CreateWorkoutBlock;
 };
-
 
 export type MutationEditWorkoutBlockArgs = {
   request: EditWorkoutBlock;
 };
 
-
 export type MutationDeleteWorkoutBlockArgs = {
   request: Scalars['ID'];
 };
-
 
 export type MutationSetWorkoutBlockExercisesArgs = {
   request: SetWorkoutBlockExercises;
 };
 
-
 export type MutationCreateWorkoutCategoryArgs = {
   request: CreateWorkoutCategory;
 };
 
-
 export type MutationEditWorkoutCategoryArgs = {
   request: EditWorkoutCategory;
 };
-
 
 export type MutationCreateWorkoutProgramArgs = {
   request: CreateWorkoutProgram;
@@ -408,6 +378,10 @@ export type NullableAttachUnitData = {
 
 export type NullableIdEditor = {
   value?: Maybe<Scalars['ID']>;
+};
+
+export type NullableIdListEditor = {
+  value?: Maybe<Array<Scalars['ID']>>;
 };
 
 export type NullableIntEditor = {
@@ -538,10 +512,7 @@ export type PrescriptionSet = {
   prescription?: Maybe<Prescription>;
 };
 
-export type ProgramLevel = 
-  | 'BEGINNER'
-  | 'INTERMEDIATE'
-  | 'ADVANCED';
+export type ProgramLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
 
 export type Query = {
   __typename?: 'Query';
@@ -567,11 +538,9 @@ export type Query = {
   workoutProgramSearch?: Maybe<WorkoutProgramSearchResults>;
 };
 
-
 export type QueryExerciseArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryExerciseSearchArgs = {
   request: ExerciseSearchRequest;
@@ -579,11 +548,9 @@ export type QueryExerciseSearchArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryOrganizationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryOrganizationAvailableTagsArgs = {
   id: Scalars['ID'];
@@ -591,11 +558,9 @@ export type QueryOrganizationAvailableTagsArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryPlanArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPlanSearchArgs = {
   request: PlanSearchRequest;
@@ -603,16 +568,13 @@ export type QueryPlanSearchArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryPlanScheduleArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryPrescriptionArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryPrescriptionSearchArgs = {
   request: PrescriptionSearchRequest;
@@ -620,17 +582,14 @@ export type QueryPrescriptionSearchArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryTagArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryTagByTagArgs = {
   tag: Scalars['String'];
   trainerOrganizationID: Scalars['ID'];
 };
-
 
 export type QueryTagSearchArgs = {
   request: TagSearchRequest;
@@ -638,21 +597,17 @@ export type QueryTagSearchArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryWorkoutArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryWorkoutBlockArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryWorkoutCategoryArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryWorkoutCategorySearchArgs = {
   request: WorkoutCategorySearchRequest;
@@ -660,11 +615,9 @@ export type QueryWorkoutCategorySearchArgs = {
   after?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryWorkoutProgramArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryWorkoutProgramSearchArgs = {
   request: WorkoutProgramSearchRequest;
@@ -717,7 +670,6 @@ export type TagSearchResults = {
   __typename?: 'TagSearchResults';
   results: TagConnection;
 };
-
 
 export type Unit = {
   __typename?: 'Unit';
@@ -838,7 +790,6 @@ export type WorkoutProgram = {
   workouts: WorkoutConnection;
 };
 
-
 export type WorkoutProgramWorkoutsArgs = {
   first?: Maybe<Scalars['Int']>;
   after: Scalars['ID'];
@@ -868,6 +819,4 @@ export type WorkoutProgramSearchResults = {
   results: WorkoutProgramConnection;
 };
 
-export type WorkoutProgramType = 
-  | 'RELATIVE'
-  | 'STATIC';
+export type WorkoutProgramType = 'RELATIVE' | 'STATIC';
