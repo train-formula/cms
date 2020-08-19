@@ -1,15 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import {
-  createStyles,
-  makeStyles,
-  withStyles,
-  Theme,
-} from '@material-ui/core/styles'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import InputBase from '@material-ui/core/InputBase'
+import React from 'react';
+import styled from 'styled-components';
+import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputBase from '@material-ui/core/InputBase';
 
 const BootstrapInput = withStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +39,7 @@ const BootstrapInput = withStyles((theme: Theme) =>
       },
     },
   })
-)(InputBase)
+)(InputBase);
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -53,33 +48,34 @@ const useStyles = makeStyles(() =>
       padding: '0 1rem',
     },
   })
-)
+);
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   text-align: center;
-`
+`;
+
+export type ParameterOption = {
+  value: string | number;
+  label: string | number;
+  type?: string;
+};
 
 type ParameterProps = {
-  value: any
-  updateParameterValue: (value: string) => void
-  parameterOptions: {
-    value: string | number
-    label: string | number
-    type?: string
-  }[]
-}
+  value: string | number | undefined;
+  updateParameterValue: (value: string) => void;
+  parameterOptions: ParameterOption[];
+};
 
-export const Parameter: React.FC<ParameterProps> = props => {
-  const classes = useStyles()
-  const [parameterValue, setParameterValue] = React.useState(props.value)
+export const Parameter: React.FC<ParameterProps> = (props) => {
+  const classes = useStyles();
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const value = event.target.value as string
-    setParameterValue(value)
-    props.updateParameterValue(value)
-  }
+    console.log(event);
+    const value = event.target.value as string;
+    props.updateParameterValue(value);
+  };
 
   return (
     <Container>
@@ -87,11 +83,14 @@ export const Parameter: React.FC<ParameterProps> = props => {
         <Select
           labelId="demo-customized-select-label"
           id="demo-customized-select"
-          value={parameterValue}
+          value={props.value ? props.value : '0'}
           onChange={handleChange}
           input={<BootstrapInput />}
           placeholder="sets"
         >
+          <MenuItem key={'0'} value={'0'} disabled>
+            Select a unit
+          </MenuItem>
           {props.parameterOptions.map(({ value, label }) => (
             <MenuItem key={value} value={value}>
               {label}
@@ -100,5 +99,5 @@ export const Parameter: React.FC<ParameterProps> = props => {
         </Select>
       </FormControl>
     </Container>
-  )
-}
+  );
+};

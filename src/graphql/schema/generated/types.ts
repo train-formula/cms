@@ -679,7 +679,7 @@ export type Unit = {
   name: Scalars['String'];
   nameMedium: Scalars['String'];
   nameShort: Scalars['String'];
-  representsTime: Scalars['Boolean'];
+  representsSeconds: Scalars['Boolean'];
   representsWeight: Scalars['Boolean'];
   representsCounter: Scalars['Boolean'];
   representsDistance: Scalars['Boolean'];
